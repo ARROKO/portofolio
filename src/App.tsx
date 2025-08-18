@@ -40,7 +40,7 @@ const MainContent = () => {
   const { scrollYProgress } = useScroll();
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-x-hidden">
+    <div className="relative min-h-screen text-white overflow-x-hidden">
       <SEOHead {...seoData.home} url="/" />
       <SkipLinks />
       <CustomCursor />
@@ -149,13 +149,20 @@ const MainContent = () => {
 const AppWrapper = () => {
   useEffect(() => {
     document.body.style.cursor = 'none';
+    document.body.style.background = '#1a1a2e';
+    document.body.style.minHeight = '100vh';
     return () => {
       document.body.style.cursor = 'auto';
+      document.body.style.background = '';
+      document.body.style.minHeight = '';
     };
   }, []);
 
   return (
-    <div className="bg-gray-900 min-h-screen">
+    <div className="min-h-screen" style={{ 
+      background: '#1a1a2e',
+      minHeight: '100vh'
+    }}>
       <CustomCursor />
       <Routes>
         <Route path="/" element={<MainContent />} />

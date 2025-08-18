@@ -78,17 +78,6 @@ const Home = () => {
               <br />
               je suis <span style={customStyle}> Joseph</span>
               
-              {/* Effet de glow subtil */}
-              <motion.div
-                className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl blur-xl"
-                animate={{
-                  opacity: [0.5, 0.8, 0.5],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                }}
-              />
             </motion.h1>
           </motion.div>
           

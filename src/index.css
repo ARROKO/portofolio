@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global dark background */
+body {
+  background: #1a1a2e !important;
+  min-height: 100vh;
+  color: white;
+}
+
+html {
+  background: #1a1a2e;
+}
+
 /* Masquer le curseur par défaut sur tout le site */
 * {
   cursor: none !important;
@@ -71,6 +82,6 @@ html {
 }
 
 .bg-grid-pattern {
-  background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-image: none;
   background-size: 20px 20px;
 }
