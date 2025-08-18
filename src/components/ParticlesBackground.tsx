@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import type { Container, Engine } from "tsparticles-engine";
+import type { Engine } from "tsparticles-engine";
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 
@@ -18,7 +18,7 @@ const ParticlesBackground = () => {
             value: 'rgb(17 24 39 / var(--tw-bg-opacity, 1)',
           },
         },
-        fpsLimit: 20,
+        fpsLimit: 30,
         interactivity: {
           events: {
             onClick: {
@@ -59,15 +59,15 @@ const ParticlesBackground = () => {
               default: "bounce",
             },
             random: false,
-            speed: 1,
+            speed: 0.5,
             straight: false,
           },
           number: {
             density: {
               enable: true,
-              area: 800,
+              area: 1200,
             },
-            value: 80,
+            value: 40,
           },
           opacity: {
             value: 0.3,

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -6,29 +6,42 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isOpen, setIsOpen] = useState(false);
   const { scrollY } = useScroll();
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   const opacity = useTransform(scrollY, [0, 100], [1, 0.8]);
   const scale = useTransform(scrollY, [0, 100], [1, 0.95]);
 
   useEffect(() => {
-    const checkScroll = () => {
-      const sections = ['home', 'about', 'projects', 'skills', 'contact'];
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
+    // Utiliser IntersectionObserver au lieu de scroll listener pour de meilleures performances
+    const sections = ['home', 'about', 'projects', 'skills', 'contact'];
+    
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            setActiveSection(entry.target.id);
           }
-        }
+        });
+      },
+      {
+        threshold: [0.5], // Se déclenche quand 50% de la section est visible
+        rootMargin: '-20% 0px -20% 0px' // Marge pour une détection plus précise
+      }
+    );
+
+    // Observer toutes les sections
+    sections.forEach(sectionId => {
+      const element = document.getElementById(sectionId);
+      if (element && observerRef.current) {
+        observerRef.current.observe(element);
+      }
+    });
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
       }
     };
-
-    window.addEventListener('scroll', checkScroll);
-    return () => window.removeEventListener('scroll', checkScroll);
   }, []);
 
   const menuItems = [

@@ -1,17 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, useScroll } from 'framer-motion';
 import Navbar from './components/Navbar';
 import CustomCursor from './components/CustomCursor';
 import SkillIcon from './components/SkillIcon';
-import Skills from './pages/Skills';
-import Contact from './pages/Contact';
-import Projects from './pages/Projects';
-import ProjectDetails from './pages/ProjectDetails';
-import About from './pages/About';
 import Home from './pages/Home';
 import { Footer } from './pages/Footer';
 import { CVDownload } from './components/CVDownload';
+
+// Lazy loading des composants lourds
+const Skills = lazy(() => import('./pages/Skills'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Projects = lazy(() => import('./pages/Projects'));
+const ProjectDetails = lazy(() => import('./pages/ProjectDetails'));
+const About = lazy(() => import('./pages/About'));
 
 const skills = [
   { name: "React", progress: 90 },
@@ -50,7 +52,9 @@ const MainContent = () => {
           >
             À Propos
           </motion.h2>
-          <About />
+          <Suspense fallback={<div className="flex justify-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
+            <About />
+          </Suspense>
         </div>
       </section>
 
@@ -64,7 +68,9 @@ const MainContent = () => {
           >
             Projets
           </motion.h2>
-          <Projects />
+          <Suspense fallback={<div className="flex justify-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
+            <Projects />
+          </Suspense>
         </div>
       </section>
 
@@ -87,7 +93,9 @@ const MainContent = () => {
               />
             ))}
           </div>
-          <Skills />
+          <Suspense fallback={<div className="flex justify-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
+            <Skills />
+          </Suspense>
         </div>
       </section>
 
@@ -101,7 +109,9 @@ const MainContent = () => {
           >
             Contact
           </motion.h2>
-          <Contact />
+          <Suspense fallback={<div className="flex justify-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
+            <Contact />
+          </Suspense>
         </div>
       </section>
 
@@ -132,7 +142,11 @@ const AppWrapper = () => {
       <CustomCursor />
       <Routes>
         <Route path="/" element={<MainContent />} />
-        <Route path="/project/:id" element={<ProjectDetails />} />
+        <Route path="/project/:id" element={
+          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div></div>}>
+            <ProjectDetails />
+          </Suspense>
+        } />
       </Routes>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CustomCursor = () => {
@@ -6,9 +6,15 @@ const CustomCursor = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isPointer, setIsPointer] = useState(false);
   const [isLinkHovered, setIsLinkHovered] = useState(false);
+  const rafRef = useRef<number>();
 
-  useEffect(() => {
-    const updateCursor = (e: MouseEvent) => {
+  const updateCursorPosition = useCallback((e: MouseEvent) => {
+    // Utiliser requestAnimationFrame pour des performances optimales
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+    }
+    
+    rafRef.current = requestAnimationFrame(() => {
       setPosition({ x: e.clientX, y: e.clientY });
       
       const target = e.target as HTMLElement;
@@ -17,21 +23,26 @@ const CustomCursor = () => {
       
       setIsPointer(isTargetPointer);
       setIsLinkHovered(isMotionLink);
-    };
+    });
+  }, []);
 
+  useEffect(() => {
     const handleMouseEnter = () => setIsVisible(true);
     const handleMouseLeave = () => setIsVisible(false);
 
-    window.addEventListener('mousemove', updateCursor);
+    window.addEventListener('mousemove', updateCursorPosition);
     document.addEventListener('mouseenter', handleMouseEnter);
     document.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      window.removeEventListener('mousemove', updateCursor);
+      window.removeEventListener('mousemove', updateCursorPosition);
       document.removeEventListener('mouseenter', handleMouseEnter);
       document.removeEventListener('mouseleave', handleMouseLeave);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
     };
-  }, []);
+  }, [updateCursorPosition]);
 
   return (
     <AnimatePresence>
