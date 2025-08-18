@@ -17,13 +17,9 @@ const CustomCursor = () => {
       setPosition({ x: e.clientX, y: e.clientY });
       
       const target = e.target as HTMLElement;
-      const isLink = target.closest('a, [role="button"], button') !== null;
       const isInteractive = target.closest('button, input, textarea, select, [tabindex], [onclick]') !== null;
       
-      if (isLink) {
-        setCursorType('link');
-        setIsHovering(true);
-      } else if (isInteractive) {
+      if (isInteractive) {
         setCursorType('button');
         setIsHovering(true);
       } else {

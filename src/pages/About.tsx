@@ -274,48 +274,106 @@ const About = () => {
             transition={{ delay: 0.8 }}
             className="space-y-8"
           >
-            <h2 className="text-3xl font-bold text-white mb-8">Parcours</h2>
+            {/* Titre de section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold text-white mb-4">Mon Parcours</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded-full"></div>
+            </motion.div>
 
-            <div className="space-y-8">
-              {[
-                {
-                  period: "Février 2024 - Présent",
-                  title: "Développeur junior",
-                  company: "TW Micronics",
-                  description: "Direction informatique.",
-                },
-                // {
-                //   period: "Janvier 2024 - Présent",
-                //   title: "Développeur backend et mobile",
-                //   company: "CCAA",
-                //   description:
-                //     "Développeur junior, participant au Développement et déploiement d'une application desktop de géstion d'un établissement scolaire.",
-                // },
-                {
-                  period: "Février 2023 - Janvier 2024",
-                  title: "Développeur junior",
-                  company: "BRIDGE Company SARL",
-                  description:
-                    "Développeur junior, participant au Développement et déploiement d'une application desktop de géstion d'un établissement scolaire.",
-                },
-              ].map((experience, index) => (
-                <motion.div
-                  key={experience.title}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1 + index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 hover:bg-white/10 transition-colors"
-                >
-                  <span className="text-sm text-gray-400">
-                    {experience.period}
-                  </span>
-                  <h3 className="text-xl font-bold text-white mt-2">
-                    {experience.title}
-                  </h3>
-                  <p className="text-gray-300 mt-1">{experience.company}</p>
-                  <p className="text-gray-400 mt-3">{experience.description}</p>
-                </motion.div>
-              ))}
+            {/* Timeline */}
+            <div className="relative">
+              {/* Ligne verticale */}
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 via-purple-500 to-pink-500"></div>
+              
+              <div className="space-y-8">
+                {[
+                  {
+                    period: "Février 2024 - Présent",
+                    title: "Développeur Junior",
+                    company: "TW Micronics",
+                    logo: "/src/images/twmicronics_logo.png",
+                    description: "Développement d'applications web et maintenance systèmes informatiques.",
+                    technologies: ["React", "TypeScript", "Node.js", "PostgreSQL"],
+                    color: "from-blue-400 to-cyan-500",
+                    isActive: true
+                  },
+                  {
+                    period: "Février 2023 - Janvier 2024",
+                    title: "Développeur Junior",
+                    company: "BRIDGE Company SARL",
+                    logo: "/src/images/bridge_logo.png",
+                    description: "Application desktop de gestion scolaire et optimisation des processus.",
+                    technologies: ["C#", ".NET", "WPF", "SQL Server"],
+                    color: "from-purple-400 to-pink-500",
+                    isActive: false
+                  },
+                ].map((experience) => (
+                  <div
+                    key={experience.company}
+                    className="relative flex items-start gap-6 group"
+                  >
+                    {/* Point sur la timeline */}
+                    <div className="relative z-10 flex-shrink-0">
+                      <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${experience.color} p-0.5 shadow-lg hover:scale-105 transition-transform duration-200`}>
+                        <div className="w-full h-full bg-gray-900 rounded-full flex items-center justify-center overflow-hidden">
+                          <div className={`${experience.company === 'BRIDGE Company SARL' ? 'bg-white rounded-full p-1' : ''} flex items-center justify-center`}>
+                            <img 
+                              src={experience.logo} 
+                              alt={`${experience.company} logo`}
+                              className="w-10 h-10 object-contain filter brightness-110"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Badge "Actuel" */}
+                      {experience.isActive && (
+                        <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-lg">
+                          Actuel
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Contenu de l'expérience */}
+                    <div className="flex-1 bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 group-hover:bg-white/10">
+                      {/* Header */}
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+                        <div>
+                          <h3 className={`text-lg font-bold bg-gradient-to-r ${experience.color} bg-clip-text text-transparent`}>
+                            {experience.title}
+                          </h3>
+                          <p className="text-base text-white font-medium">{experience.company}</p>
+                        </div>
+                        <span className="text-xs text-gray-400 bg-gray-800/50 px-2 py-1 rounded-full">
+                          {experience.period}
+                        </span>
+                      </div>
+                      
+                      {/* Description */}
+                      <p className="text-sm text-gray-300 mb-3">
+                        {experience.description}
+                      </p>
+                      
+                      {/* Technologies */}
+                      {/* <div className="flex flex-wrap gap-2">
+                        {experience.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className={`px-2 py-1 text-xs bg-gradient-to-r ${experience.color} bg-opacity-20 text-white rounded-full border border-white/20`}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div> */}
+                      
+                      </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
