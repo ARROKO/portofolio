@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
-import { Play, Pause } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import PageTransition from "../components/PageTransition";
 import { Stats } from "../components/About/Stats";
 import { Currency } from "../components/About/Currency";
@@ -11,12 +11,12 @@ import { aboutContent } from "../components/About/AboutContent";
 const About = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(5000);
+  const [showHoverIcon, setShowHoverIcon] = useState(false);
+  const [hoverIconType, setHoverIconType] = useState<'pause' | 'play'>('pause');
 
   useEffect(() => {
     if (isPaused) {
-      setProgress(0);
       return;
     }
 
@@ -25,15 +25,12 @@ const About = () => {
     
     const progressInterval = setInterval(() => {
       const elapsed = Date.now() - startTime;
-      const progressPercent = (elapsed / duration) * 100;
       const remaining = Math.max(0, duration - elapsed);
       
-      setProgress(Math.min(progressPercent, 100));
       setTimeRemaining(remaining);
       
       if (elapsed >= duration) {
         setCurrentIndex((prev) => (prev + 1) % aboutContent.length);
-        setProgress(0);
         setTimeRemaining(duration);
       }
     }, 50);
@@ -43,19 +40,39 @@ const About = () => {
 
   const handleMouseEnter = useCallback(() => {
     setIsPaused(true);
+    setHoverIconType('pause');
+    setShowHoverIcon(true);
+    
+    // Masquer l'icône après 800ms
+    setTimeout(() => {
+      setShowHoverIcon(false);
+    }, 800);
   }, []);
 
   const handleMouseLeave = useCallback(() => {
     setIsPaused(false);
+    setHoverIconType('play');
+    setShowHoverIcon(true);
+    
+    // Masquer l'icône après 800ms
+    setTimeout(() => {
+      setShowHoverIcon(false);
+    }, 800);
   }, []);
 
   const togglePause = useCallback(() => {
     setIsPaused(prev => !prev);
   }, []);
+  
+  const handleClick = useCallback(() => {
+    // Sur mobile, un tap toggle la pause
+    if (window.innerWidth < 768) {
+      togglePause();
+    }
+  }, [togglePause]);
 
   const goToSlide = useCallback((index: number) => {
     setCurrentIndex(index);
-    setProgress(0);
     setTimeRemaining(5000);
   }, []);
   return (
@@ -65,9 +82,10 @@ const About = () => {
         <section className="py-8 px-6">
           <div className="max-w-7xl mx-auto">
             <div
-              className="grid md:grid-cols-2 gap-12 items-center"
+              className="relative grid md:grid-cols-2 gap-12 items-center cursor-pointer"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
+              onClick={handleClick}
             >
               {/* Stacked Images */}
               <motion.div
@@ -81,86 +99,155 @@ const About = () => {
                   images={aboutContent}
                   currentIndex={currentIndex}
                 />
+                
+                {/* Animation d'icône temporaire - Version améliorée */}
+                <AnimatePresence>
+                  {showHoverIcon && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.3, rotate: -180 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      exit={{ opacity: 0, scale: 0.3, rotate: 180 }}
+                      transition={{ 
+                        duration: 0.5, 
+                        ease: "backOut",
+                        rotate: { duration: 0.6 }
+                      }}
+                      className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
+                    >
+                      <motion.div
+                        initial={{ scale: 0.8, y: 10 }}
+                        animate={{ 
+                          scale: [0.8, 1.2, 1], 
+                          y: [10, -5, 0],
+                          boxShadow: [
+                            "0 0 0 0 rgba(255,255,255,0)",
+                            "0 0 20px 10px rgba(255,255,255,0.1)",
+                            "0 0 0 0 rgba(255,255,255,0)"
+                          ]
+                        }}
+                        transition={{ 
+                          duration: 0.6, 
+                          ease: "easeOut",
+                          times: [0, 0.6, 1]
+                        }}
+                        className="relative bg-gradient-to-br from-white/25 to-white/10 backdrop-blur-xl rounded-full p-5 border border-white/40 shadow-2xl"
+                      >
+                        {/* Effet de glow interne */}
+                        <motion.div
+                          className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20"
+                          animate={{
+                            opacity: [0.3, 0.7, 0.3],
+                            scale: [0.8, 1.1, 0.8]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        />
+                        
+                        <motion.div
+                          animate={{
+                            rotate: hoverIconType === 'pause' ? [0, -5, 5, 0] : [0, -5, 5, 0]
+                          }}
+                          transition={{
+                            duration: 0.4,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          {hoverIconType === 'pause' ? (
+                            <Pause className="w-10 h-10 text-white drop-shadow-lg" />
+                          ) : (
+                            <Play className="w-10 h-10 text-white ml-1 drop-shadow-lg" />
+                          )}
+                        </motion.div>
+                        
+                        {/* Particules décoratives */}
+                        {[...Array(6)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="absolute w-1 h-1 bg-white/60 rounded-full"
+                            style={{
+                              left: `${20 + Math.cos(i * 60 * Math.PI / 180) * 40}px`,
+                              top: `${20 + Math.sin(i * 60 * Math.PI / 180) * 40}px`,
+                            }}
+                            animate={{
+                              scale: [0, 1, 0],
+                              opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 1,
+                              delay: i * 0.1,
+                              ease: "easeOut"
+                            }}
+                          />
+                        ))}
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
               {/* Content */}
-              <ContentSlide content={aboutContent[currentIndex]} />
+              <div className="relative">
+                <ContentSlide content={aboutContent[currentIndex]} />
+                
+              </div>
             </div>
 
-            {/* Contrôles et Navigation */}
-            <div className="flex flex-col items-center gap-4 mt-8">
-              {/* Barre de progression temporelle */}
-              <div className="w-full max-w-md">
-                <div className="flex items-center justify-between text-sm text-gray-400 mb-2">
-                  <span>Slide {currentIndex + 1}/{aboutContent.length}</span>
-                  <span>{Math.ceil(timeRemaining / 1000)}s</span>
-                </div>
-                <div className="relative w-full h-2 bg-gray-700 rounded-full overflow-hidden">
-                  <motion.div
-                    className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
-                    style={{ width: `${progress}%` }}
-                    transition={{ duration: 0.1 }}
-                  />
-                  {isPaused && (
-                    <div className="absolute inset-0 bg-yellow-500/20 flex items-center justify-center">
-                      <Pause className="w-3 h-3 text-yellow-400" />
-                    </div>
-                  )}
-                </div>
-              </div>
-              
-              {/* Contrôles */}
-              <div className="flex items-center gap-4">
-                {/* Bouton Play/Pause */}
+            
+            {/* Navigation simple */}
+            <div className="flex justify-center items-center gap-2 mt-8">
+              {aboutContent.map((_, index) => (
                 <button
-                  onClick={togglePause}
-                  className="flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
-                  aria-label={isPaused ? 'Reprendre' : 'Pause'}
-                >
-                  {isPaused ? (
-                    <Play className="w-4 h-4 text-white ml-0.5" />
-                  ) : (
-                    <Pause className="w-4 h-4 text-white" />
-                  )}
-                </button>
-                
-                {/* Navigation Dots */}
-                <div className="flex gap-2">
-                  {aboutContent.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => goToSlide(index)}
-                      className={`w-5 h-1 rounded-2xl transition-all duration-300 ${
-                        index === currentIndex
-                          ? "bg-blue-500 scale-125"
-                          : "bg-gray-500 hover:bg-gray-400"
-                      }`}
-                      aria-label={`Aller à la slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-              
-              {/* Indicateur d'état pour mobile */}
-              <div className="md:hidden text-center">
-                <p className="text-xs text-gray-400">
-                  {isPaused ? (
-                    <span className="flex items-center justify-center gap-1">
-                      <Pause className="w-3 h-3" />
-                      Diaporama en pause
-                    </span>
-                  ) : (
-                    <span className="flex items-center justify-center gap-1">
-                      <Play className="w-3 h-3" />
-                      Diaporama en cours
-                    </span>
-                  )}
-                </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  Touchez le bouton pause pour lire tranquillement
-                </p>
-              </div>
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-2 h-1 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                      ? "bg-white scale-125"
+                      : "bg-white/30 hover:bg-white/60"
+                  }`}
+                  aria-label={`Slide ${index + 1}`}
+                />
+              ))}
             </div>
+            
+            {/* Indicateur de temps élégant */}
+            <motion.div 
+              className="text-center mt-6"
+              animate={{ 
+                opacity: isPaused ? 0.4 : 0.8,
+                y: isPaused ? 2 : 0
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm rounded-full border border-white/10">
+                <motion.div
+                  className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"
+                  animate={{
+                    scale: isPaused ? [1, 0.8, 1] : [1, 1.2, 1],
+                    opacity: isPaused ? 0.5 : [0.5, 1, 0.5]
+                  }}
+                  transition={{
+                    duration: isPaused ? 1 : 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                <span className="text-sm text-gray-300 font-medium tracking-wider">
+                  {Math.ceil(timeRemaining / 1000)}s
+                </span>
+                {isPaused && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-xs text-yellow-400 font-medium"
+                  >
+                    PAUSE
+                  </motion.span>
+                )}
+              </div>
+            </motion.div>
           </div>
         </section>
 
