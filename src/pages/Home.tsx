@@ -1,5 +1,5 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ChevronDown, Sparkles } from "lucide-react";
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Sparkles } from 'lucide-react';
 import PageTransition from "../components/PageTransition";
 import { DeveloperTypeSlider } from "../components/DeveloperTypeSlider";
 import { useRef } from "react";
@@ -104,12 +104,14 @@ const Home = () => {
         >
           <span className="text-sm font-medium">Découvrez la suite</span>
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
             className="cursor-pointer hover:text-white transition-colors"
             onClick={scrollToAbout}
           >
-            <ChevronDown className="w-6 h-6" />
+            <div className="w-6 h-10 border-2 border-white/60 rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-bounce" />
+            </div>
           </motion.div>
         </motion.div>
       </div>
