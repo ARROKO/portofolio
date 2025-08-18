@@ -4,12 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
-  const [isPointer, setIsPointer] = useState(false);
-  const [isLinkHovered, setIsLinkHovered] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [cursorType, setCursorType] = useState<'default' | 'link' | 'button'>('default');
   const rafRef = useRef<number>();
 
   const updateCursorPosition = useCallback((e: MouseEvent) => {
-    // Utiliser requestAnimationFrame pour des performances optimales
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current);
     }
@@ -18,11 +17,19 @@ const CustomCursor = () => {
       setPosition({ x: e.clientX, y: e.clientY });
       
       const target = e.target as HTMLElement;
-      const isTargetPointer = window.getComputedStyle(target).cursor === 'pointer';
-      const isMotionLink = target.closest('a') !== null;
+      const isLink = target.closest('a, [role="button"], button') !== null;
+      const isInteractive = target.closest('button, input, textarea, select, [tabindex], [onclick]') !== null;
       
-      setIsPointer(isTargetPointer);
-      setIsLinkHovered(isMotionLink);
+      if (isLink) {
+        setCursorType('link');
+        setIsHovering(true);
+      } else if (isInteractive) {
+        setCursorType('button');
+        setIsHovering(true);
+      } else {
+        setCursorType('default');
+        setIsHovering(false);
+      }
     });
   }, []);
 
@@ -48,40 +55,76 @@ const CustomCursor = () => {
     <AnimatePresence>
       {isVisible && (
         <>
+          {/* Curseur principal - Point central */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{
-              opacity: 1,
-              scale: isPointer || isLinkHovered ? 1.5 : 1,
-              x: position.x - 8,
-              y: position.y - 8,
+              opacity: cursorType === 'default' ? 1 : 0.8,
+              scale: isHovering ? 0.5 : 1,
+              x: position.x - 3,
+              y: position.y - 3,
             }}
             exit={{ opacity: 0, scale: 0 }}
-            className="fixed top-0 left-0 w-4 h-4 bg-blue-500 rounded-full pointer-events-none z-[9999] mix-blend-difference"
+            className="fixed top-0 left-0 w-1.5 h-1.5 bg-white rounded-full pointer-events-none z-[9999] shadow-lg"
             transition={{
               type: "spring",
-              stiffness: 500,
-              damping: 28,
-              mass: 0.5,
+              stiffness: 800,
+              damping: 35,
+              mass: 0.3,
             }}
           />
+          
+          {/* Anneau externe - Suit avec délai */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{
-              opacity: 1,
-              scale: isPointer || isLinkHovered ? 1.5 : 1,
-              x: position.x - 14,
-              y: position.y - 14,
+              opacity: isHovering ? 0.9 : 0.6,
+              scale: cursorType === 'link' ? 2.5 : cursorType === 'button' ? 2 : 1.5,
+              x: position.x - 16,
+              y: position.y - 16,
             }}
             exit={{ opacity: 0, scale: 0 }}
-            className="fixed top-0 left-0 w-7 h-7 border-2 border-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+            className={`fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] border transition-colors duration-200 ${
+              cursorType === 'link' 
+                ? 'border-blue-400 bg-blue-400/10' 
+                : cursorType === 'button'
+                ? 'border-purple-400 bg-purple-400/10'
+                : 'border-white/40 bg-white/5'
+            }`}
             transition={{
               type: "spring",
-              stiffness: 250,
-              damping: 20,
-              mass: 0.8,
+              stiffness: 150,
+              damping: 25,
+              mass: 1.2,
             }}
           />
+          
+          {/* Indicateur de type d'interaction */}
+          {isHovering && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                x: position.x - 12,
+                y: position.y - 12,
+              }}
+              exit={{ opacity: 0, scale: 0 }}
+              className={`fixed top-0 left-0 w-6 h-6 rounded-full pointer-events-none z-[9997] flex items-center justify-center text-xs font-bold ${
+                cursorType === 'link'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-purple-500 text-white'
+              }`}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 30,
+                mass: 0.5,
+              }}
+            >
+              {cursorType === 'link' ? '↗' : '•'}
+            </motion.div>
+          )}
         </>
       )}
     </AnimatePresence>

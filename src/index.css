@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Masquer le curseur par défaut sur tout le site */
+* {
+  cursor: none !important;
+}
+
+a, button, [role="button"], input, textarea, select, [tabindex], [onclick] {
+  cursor: none !important;
+}
+
 :root {
   color-scheme: dark;
 }
