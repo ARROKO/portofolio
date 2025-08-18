@@ -3,10 +3,13 @@ import { motion } from 'framer-motion';
 import { Github, ExternalLink, ArrowLeft } from 'lucide-react';
 import { Project } from '../Projects/data';
 import { useNavigate } from 'react-router-dom';
+import LazyImage from '../LazyImage';
 
 interface ProjectHeroProps {
   project: Project;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   opacity: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   scale: any;
 }
 
@@ -20,10 +23,11 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, opacity, scale }) =>
       style={{ opacity, scale }}
     >
       <div className="absolute inset-0">
-        <img 
+        <LazyImage
           src={project.image2 !== undefined ? project.image2 : project.image} 
           alt={project.title}
           className="w-full h-full object-cover"
+          loading="eager"
         />
         <div className={`absolute inset-0 ${
           project.type === 'personal'

@@ -7,6 +7,9 @@ import { Currency } from "../components/About/Currency";
 import ContentSlide from "../components/About/ContentSlide";
 import StackedImages from "../components/About/StackedImages";
 import { aboutContent } from "../components/About/AboutContent";
+import LazyImage from "../components/LazyImage";
+import SEOHead from "../components/SEO/SEOHead";
+import { seoData } from "../data/seoData";
 
 const About = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -77,6 +80,7 @@ const About = () => {
   }, []);
   return (
     <PageTransition>
+      <SEOHead {...seoData.about} url="/about" />
       <div className="max-w-18xl mx-auto px-4 py-16">
         {/* Hero Section */}
         <section className="py-8 px-6">
@@ -321,7 +325,7 @@ const About = () => {
                       <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${experience.color} p-0.5 shadow-lg hover:scale-105 transition-transform duration-200`}>
                         <div className="w-full h-full bg-gray-900 rounded-full flex items-center justify-center overflow-hidden">
                           <div className={`${experience.company === 'BRIDGE Company SARL' ? 'bg-white rounded-full p-1' : ''} flex items-center justify-center`}>
-                            <img 
+                            <LazyImage
                               src={experience.logo} 
                               alt={`${experience.company} logo`}
                               className="w-10 h-10 object-contain filter brightness-110"

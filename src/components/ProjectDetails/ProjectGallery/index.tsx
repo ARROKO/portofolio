@@ -8,6 +8,7 @@ import { FullscreenButton } from './FullscreenButton';
 import { ImageModal } from './ImageModal';
 import { useGalleryKeyboard } from './useGalleryKeyboard';
 import { useGalleryAutoplay } from './useGalleryAutoplay';
+import LazyImage from '../../LazyImage';
 
 interface ProjectGalleryProps {
   screenshots: string[];
@@ -87,7 +88,7 @@ const ProjectGallery = ({ screenshots, type }: ProjectGalleryProps) => {
                 ${idx === currentIndex ? 'ring-2 ring-offset-4 ring-offset-[#1a1a2e]' : 'opacity-50 hover:opacity-75'}
                 ${type === 'personal' ? 'ring-pink-500' : 'ring-blue-500'}`}
             >
-              <img
+              <LazyImage
                 src={src}
                 alt={`Preview ${idx + 1}`}
                 className="w-full h-full object-cover"

@@ -3,6 +3,7 @@ import { Github, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Project } from './data';
+import LazyImage from '../LazyImage';
 
 interface ProjectCardProps {
   project: Project;
@@ -27,7 +28,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     >
       {/* Background Image with Parallax Effect */}
       <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
-        <img
+        <LazyImage
           src={project.image}
           alt={project.title}
           className="h-full w-full object-cover transform scale-100"

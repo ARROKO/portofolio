@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import LazyImage from "../LazyImage";
 
 interface TechnologyTagProps {
   name: string;
@@ -14,7 +15,7 @@ export const TechnologyTag = ({ name, icon, delay }: TechnologyTagProps) => (
     className="px-3 flex gap-1 py-1 bg-white/10 rounded-full text-sm font-medium"
   >
     {
-      icon && <img src={icon} alt="" width={20}/>
+      icon && <LazyImage src={icon} alt="" width={20}/>
     }
     {name}
   </motion.span>

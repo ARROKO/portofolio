@@ -1,19 +1,28 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { motion, useScroll } from 'framer-motion';
 import Navbar from './components/Navbar';
 import CustomCursor from './components/CustomCursor';
 import SkillIcon from './components/SkillIcon';
-import Home from './pages/Home';
 import { Footer } from './pages/Footer';
 import { CVDownload } from './components/CVDownload';
+import LoadingSpinner from './components/LoadingSpinner';
+import SEOHead from './components/SEO/SEOHead';
+import { seoData } from './data/seoData';
+import SkipLinks from './components/SkipLinks';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
+import './styles/accessibility.css';
 
-// Lazy loading des composants lourds
-const Skills = lazy(() => import('./pages/Skills'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Projects = lazy(() => import('./pages/Projects'));
-const ProjectDetails = lazy(() => import('./pages/ProjectDetails'));
-const About = lazy(() => import('./pages/About'));
+// Lazy loading optimisé avec code splitting
+import {
+  Home,
+  About,
+  Skills,
+  Projects,
+  Contact,
+  ProjectDetails
+} from './utils/lazyRoutes';
 
 const skills = [
   { name: "React", progress: 90 },
@@ -31,100 +40,108 @@ const MainContent = () => {
   const { scrollYProgress } = useScroll();
 
   return (
-    <>
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-x-hidden">
+      <SEOHead {...seoData.home} url="/" />
+      <SkipLinks />
+      <CustomCursor />
       <Navbar />
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-blue-500 origin-left z-50"
         style={{ scaleX: scrollYProgress }}
       />
 
-      <section id="home" className="min-h-screen flex items-center justify-center">
-        <Home />
-      </section>
-
-      <section id="about" className="min-h-screen py-24 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl font-bold text-white mb-8"
-          >
-            À Propos
-          </motion.h2>
-          <Suspense fallback={<div className="flex justify-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
-            <About />
+      <main id="main-content" tabIndex={-1}>
+        <section id="home" className="min-h-screen flex items-center justify-center">
+          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><LoadingSpinner size="lg" color="purple" text="Chargement de l'accueil..." /></div>}>
+            <Home />
           </Suspense>
-        </div>
-      </section>
+        </section>
 
-      <section id="projects" className="min-h-screen px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl font-bold text-white mb-12"
-          >
-            Projets
-          </motion.h2>
-          <Suspense fallback={<div className="flex justify-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
-            <Projects />
-          </Suspense>
-        </div>
-      </section>
-
-      <section id="skills" className="min-h-screen py-24 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl font-bold text-white mb-12"
-          >
-            Compétences
-          </motion.h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {skills.map((skill) => (
-              <SkillIcon
-                key={skill.name}
-                name={skill.name}
-                progress={skill.progress}
-              />
-            ))}
+        <section id="about" className="min-h-screen py-24 px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl font-bold text-white mb-8"
+            >
+              À Propos
+            </motion.h2>
+            <Suspense fallback={<LoadingSpinner color="purple" text="Chargement de la section À propos..." />}>
+              <About />
+            </Suspense>
           </div>
-          <Suspense fallback={<div className="flex justify-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
-            <Skills />
-          </Suspense>
-        </div>
-      </section>
+        </section>
 
-      <section id="contact" className="min-h-screen py-24 px-4">
-        <div className="max-w-4xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl font-bold text-white mb-12"
-          >
-            Contact
-          </motion.h2>
-          <Suspense fallback={<div className="flex justify-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
-            <Contact />
-          </Suspense>
-        </div>
-      </section>
+        <section id="projects" className="min-h-screen px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl font-bold text-white mb-12"
+            >
+              Projets
+            </motion.h2>
+            <Suspense fallback={<LoadingSpinner color="blue" text="Chargement des projets..." />}>
+              <Projects />
+            </Suspense>
+          </div>
+        </section>
 
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.4 }}
-        className="max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-4xl mx-auto"
-      >
-        <CVDownload />
-      </motion.div>
-      <Footer />
-    </>
+        <section id="skills" className="min-h-screen py-24 px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl font-bold text-white mb-12"
+            >
+              Compétences
+            </motion.h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {skills.map((skill) => (
+                <SkillIcon
+                  key={skill.name}
+                  name={skill.name}
+                  progress={skill.progress}
+                />
+              ))}
+            </div>
+            <Suspense fallback={<LoadingSpinner color="purple" text="Chargement des compétences..." />}>
+              <Skills />
+            </Suspense>
+          </div>
+        </section>
+
+        <section id="contact" className="min-h-screen py-24 px-4">
+          <div className="max-w-4xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl font-bold text-white mb-12"
+            >
+              Contact
+            </motion.h2>
+            <Suspense fallback={<LoadingSpinner color="pink" text="Chargement du formulaire de contact..." />}>
+              <Contact />
+            </Suspense>
+          </div>
+        </section>
+
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+          className="max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-4xl mx-auto"
+        >
+          <CVDownload />
+        </motion.div>
+        <Footer />
+      </main>
+      <PWAInstallPrompt />
+    </div>
   );
 };
 
@@ -143,7 +160,7 @@ const AppWrapper = () => {
       <Routes>
         <Route path="/" element={<MainContent />} />
         <Route path="/project/:id" element={
-          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div></div>}>
+          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><LoadingSpinner size="lg" color="blue" text="Chargement du projet..." /></div>}>
             <ProjectDetails />
           </Suspense>
         } />
@@ -155,9 +172,11 @@ const AppWrapper = () => {
 // Composant App principal avec le Router
 function App() {
   return (
-    <Router>
-      <AppWrapper />
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <AppWrapper />
+      </Router>
+    </HelmetProvider>
   );
 }
 

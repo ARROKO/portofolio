@@ -7,6 +7,8 @@ import { projects } from '../components/Projects/data';
 import ProjectHero from '../components/ProjectDetails/ProjectHero';
 import ProjectOverview from '../components/ProjectDetails/ProjectOverview';
 import ProjectGallery from '../components/ProjectDetails/ProjectGallery';
+import SEOHead from '../components/SEO/SEOHead';
+import { getProjectSEO } from '../data/seoData';
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -61,6 +63,11 @@ const ProjectDetails = () => {
 
   return (
     <div ref={containerRef} className="min-h-screen">
+      <SEOHead 
+        {...getProjectSEO(project.title, project.description)} 
+        url={`/projects/${id}`}
+        image={project.image}
+      />
       {/* Hero Section with Parallax */}
       <ProjectHero 
         project={project}

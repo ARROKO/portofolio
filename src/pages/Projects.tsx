@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import {gsap} from 'gsap';
-import CategorySwitch from '../components/CategorySwitch';
-import { projects } from '../components/Projects/data';
+import { gsap } from 'gsap';
+import PageTransition from '../components/PageTransition';
 import ProjectCard from '../components/Projects/ProjectCard';
+import { projects } from '../components/Projects/data';
+import SEOHead from '../components/SEO/SEOHead';
+import { seoData } from '../data/seoData';
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState<'personal' | 'professional'>('personal');
@@ -22,15 +24,17 @@ const Projects = () => {
   const filteredProjects = projects.filter(project => project.type === activeCategory);
 
   return (
-    <div className="min-h-screen py-20 px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        {/* Header with Animated Background */}
-        <motion.div 
-          className="text-center mb-12 relative"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+    <PageTransition>
+      <SEOHead {...seoData.projects} url="/projects" />
+      <div className="min-h-screen py-20 px-6 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          {/* Header with Animated Background */}
+          <motion.div 
+            className="text-center mb-12 relative"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
           <motion.h1 
             className="text-5xl md:text-7xl font-bold mb-6 relative z-10"
             initial={{ opacity: 0, y: 20 }}
@@ -59,10 +63,30 @@ const Projects = () => {
         </motion.div>
 
         {/* Category Switch */}
-        <CategorySwitch 
-          activeCategory={activeCategory}
-          onSwitch={setActiveCategory}
-        />
+        <div className="flex justify-center mb-12">
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-full p-2 border border-gray-700">
+            <button
+              onClick={() => setActiveCategory('personal')}
+              className={`px-6 py-3 rounded-full transition-all duration-300 ${
+                activeCategory === 'personal'
+                  ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              Projets Personnels
+            </button>
+            <button
+              onClick={() => setActiveCategory('professional')}
+              className={`px-6 py-3 rounded-full transition-all duration-300 ${
+                activeCategory === 'professional'
+                  ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              Projets Professionnels
+            </button>
+          </div>
+        </div>
         
         {/* Projects Grid with Stagger Animation */}
         <motion.div 
@@ -88,8 +112,9 @@ const Projects = () => {
             />
           ))}
         </motion.div>
+        </div>
       </div>
-    </div>
+    </PageTransition>
   );
 };
 

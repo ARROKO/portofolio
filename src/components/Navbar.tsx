@@ -87,6 +87,8 @@ const Navbar = () => {
       <motion.nav
         style={{ opacity, scale }}
         className="fixed top-0 left-1/2 -translate-x-1/2 z-50 py-3 px-6 mt-6 bg-black/20 backdrop-blur-xl rounded-full border border-white/10 shadow-2xl"
+        role="navigation"
+        aria-label="Navigation principale"
       >
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-2">
@@ -98,11 +100,19 @@ const Navbar = () => {
               <motion.button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`relative flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`relative flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent ${
                   isActive 
                     ? 'bg-white/15 text-white shadow-lg backdrop-blur-sm' 
                     : 'text-gray-300 hover:text-white hover:bg-white/5'
                 }`}
+                aria-label={`Naviguer vers ${item.label}`}
+                aria-current={isActive ? 'page' : undefined}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToSection(item.id);
+                  }
+                }}
                 whileHover={{ scale: 1.05, y: -1 }}
                 whileTap={{ scale: 0.95 }}
                 initial={false}
@@ -142,7 +152,10 @@ const Navbar = () => {
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="relative p-3 rounded-full bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-colors"
+            className="relative p-3 rounded-full bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent"
+            aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
           >
             <motion.div
               animate={{ rotate: isOpen ? 180 : 0 }}
@@ -166,6 +179,9 @@ const Navbar = () => {
           exit={{ opacity: 0, scale: 0.95, y: -10 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="mx-4 p-6 rounded-2xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-2xl"
+          id="mobile-menu"
+          role="menu"
+          aria-label="Menu de navigation mobile"
         >
           <div className="space-y-2">
             {menuItems.map((item, index) => {
@@ -176,11 +192,20 @@ const Navbar = () => {
                 <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                  className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent ${
                     isActive
                       ? 'bg-white/15 text-white shadow-lg'
                       : 'text-gray-300 hover:text-white hover:bg-white/10'
                   }`}
+                  role="menuitem"
+                  aria-label={`Naviguer vers ${item.label}`}
+                  aria-current={isActive ? 'page' : undefined}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      scrollToSection(item.id);
+                    }
+                  }}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.3 }}

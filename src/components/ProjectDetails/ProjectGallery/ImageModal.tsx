@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
+import LazyImage from '../../LazyImage';
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -34,10 +35,11 @@ export const ImageModal = ({ isOpen, onClose, src }: ImageModalProps) => (
           onClick={(e) => e.stopPropagation()}
           className="relative max-w-[90vw] max-h-[90vh]"
         >
-          <img
+          <LazyImage
             src={src}
             alt="Full size preview"
             className="w-auto h-auto max-w-full max-h-[90vh] object-contain"
+            loading="eager"
           />
         </motion.div>
       </motion.div>

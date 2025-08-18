@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AboutContent } from './AboutContent';
+import LazyImage from '../LazyImage';
 
 interface StackedImagesProps {
   images: AboutContent[];
@@ -37,11 +38,10 @@ const StackedImages: React.FC<StackedImagesProps> = ({ images, currentIndex }) =
               }}
             >
               <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
-                <img
+                <LazyImage
                   src={content.image}
                   alt={content.title}
                   className="w-full h-full object-cover"
-                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-500/30" />
               </div>
