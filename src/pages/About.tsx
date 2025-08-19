@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 import { Pause, Play } from "lucide-react";
+import { useSwipeable } from "react-swipeable";
 import PageTransition from "../components/PageTransition";
 import { Stats } from "../components/About/Stats";
 import { Currency } from "../components/About/Currency";
@@ -16,6 +17,7 @@ const About = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [showHoverIcon, setShowHoverIcon] = useState(false);
   const [hoverIconType, setHoverIconType] = useState<'pause' | 'play'>('pause');
+  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(new Array(aboutContent.length).fill(false));
 
   useEffect(() => {
     if (isPaused) {
@@ -67,6 +69,38 @@ const About = () => {
   const goToSlide = useCallback((index: number) => {
     setCurrentIndex(index);
   }, []);
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % aboutContent.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + aboutContent.length) % aboutContent.length);
+  }, []);
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: nextSlide,
+    onSwipedRight: prevSlide,
+    trackMouse: false,
+    trackTouch: true,
+    preventScrollOnSwipe: true,
+    delta: 10
+  });
+
+  // Preload images
+  useEffect(() => {
+    aboutContent.forEach((content, index) => {
+      const img = new Image();
+      img.onload = () => {
+        setImagesLoaded(prev => {
+          const newState = [...prev];
+          newState[index] = true;
+          return newState;
+        });
+      };
+      img.src = content.image;
+    });
+  }, []);
   return (
     <PageTransition>
       <SEOHead {...seoData.about} url="/about" />
@@ -76,28 +110,38 @@ const About = () => {
           <div className="max-w-7xl mx-auto">
             {/* Mobile Layout - Card Slider */}
             <div className="block md:hidden">
-              <div className="relative h-[50vh] min-h-[400px] max-h-[500px] overflow-hidden rounded-2xl">
+              <div 
+                {...swipeHandlers}
+                className="relative h-[50vh] min-h-[400px] max-h-[500px] overflow-hidden rounded-2xl"
+                onTouchStart={() => setIsPaused(true)}
+                onTouchEnd={() => setIsPaused(false)}
+              >
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    initial={{ x: 300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -300, opacity: 0 }}
                     transition={{ 
-                      duration: 0.4,
-                      ease: "easeInOut"
+                      duration: 0.3,
+                      ease: "easeOut"
                     }}
                     className="absolute inset-0"
-                    onTouchStart={() => setIsPaused(true)}
-                    onTouchEnd={() => setIsPaused(false)}
                   >
                     {/* Background Image */}
-                    <div 
-                      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                      style={{
-                        backgroundImage: `url(${aboutContent[currentIndex].image})`
-                      }}
-                    />
+                    <div className="absolute inset-0">
+                      {!imagesLoaded[currentIndex] && (
+                        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse" />
+                      )}
+                      <div 
+                        className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-300 ${
+                          imagesLoaded[currentIndex] ? 'opacity-100' : 'opacity-0'
+                        }`}
+                        style={{
+                          backgroundImage: `url(${aboutContent[currentIndex].image})`
+                        }}
+                      />
+                    </div>
                     
                     {/* Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/30" />
