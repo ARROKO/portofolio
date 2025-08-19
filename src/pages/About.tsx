@@ -258,26 +258,24 @@ const About = () => {
         {/* Stats Section */}
         <Stats />
 
-        {/* Currency & Experience */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-[5fr,3fr] gap-12"
+        {/* Currency Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="space-y-6"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="space-y-6"
-          >
-            <h2 className="text-3xl font-bold text-white mb-8">Mes devises</h2>
-            <Currency />
-          </motion.div>
+          <h2 className="text-3xl font-bold text-white mb-8">Mes devises</h2>
+          <Currency />
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="space-y-8"
-          >
+        {/* Timeline Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="space-y-8"
+        >
             {/* Titre de section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -303,7 +301,33 @@ const About = () => {
                     description: "Développement d'applications web et maintenance systèmes informatiques.",
                     technologies: ["React", "TypeScript", "Node.js", "PostgreSQL"],
                     color: "from-blue-400 to-cyan-500",
-                    isActive: true
+                    isActive: true,
+                    events: [
+                      {
+                        title: "LMS École des Travaux du Cameroun",
+                        description: "Création d'une plateforme d'apprentissage en ligne complète avec système de gestion des cours et formation des utilisateurs",
+                        icon: "🎓",
+                        category: "Développement & Formation"
+                      },
+                      {
+                        title: "Formation AZ-800 - CSPH Cameroun",
+                        description: "Formation certifiante Microsoft Azure sur l'administration des serveurs Windows Server hybrides",
+                        icon: "☁️",
+                        category: "Certification Microsoft"
+                      },
+                      {
+                        title: "Déploiement Maarch Courrier - MINRESI",
+                        description: "Participation au déploiement de la solution de gestion électronique de documents et Records Management",
+                        icon: "📄",
+                        category: "Déploiement Système"
+                      },
+                      {
+                        title: "Séminaires VBA Excel",
+                        description: "Animation de séminaires de formation sur l'automatisation bureautique avec VBA Excel",
+                        icon: "📊",
+                        category: "Formation Bureautique"
+                      }
+                    ]
                   },
                   {
                     period: "Février 2023 - Janvier 2024",
@@ -358,9 +382,50 @@ const About = () => {
                       </div>
                       
                       {/* Description */}
-                      <p className="text-sm text-gray-300 mb-3">
+                      <p className="text-sm text-gray-300 mb-4">
                         {experience.description}
                       </p>
+
+                      {/* Événements et formations (uniquement pour TW Micronics) */}
+                      {experience.events && (
+                        <div className="mt-4 pt-4 border-t border-white/10">
+                          <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                            <span className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></span>
+                            Formations & Événements réalisés
+                          </h4>
+                          <div className="grid gap-3">
+                            {experience.events.map((event, index) => (
+                              <motion.div
+                                key={event.title}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/10"
+                              >
+                                <div className="flex items-start gap-3">
+                                  <div className="text-lg flex-shrink-0 mt-0.5">
+                                    {event.icon}
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
+                                      <h5 className="text-sm font-medium text-white truncate">
+                                        {event.title}
+                                      </h5>
+                                      <span className="text-xs text-cyan-400 bg-cyan-400/10 px-2 py-0.5 rounded-full border border-cyan-400/20 flex-shrink-0">
+                                        {event.category}
+                                      </span>
+                                    </div>
+                                    <p className="text-xs text-gray-400 leading-relaxed">
+                                      {event.description}
+                                    </p>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                       
                       {/* Technologies */}
                       {/* <div className="flex flex-wrap gap-2">
@@ -381,7 +446,7 @@ const About = () => {
             </div>
           </motion.div>
         </div>
-      </div>
+      
     </PageTransition>
   );
 };
