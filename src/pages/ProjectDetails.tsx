@@ -74,31 +74,31 @@ const ProjectDetails = () => {
         opacity={opacity}
         scale={scale}
       />
-      <div className="max-w-7xl mx-auto px-6 py-20 space-y-32">
+      <div className="max-w-7xl mx-auto px-2 md:px-6 py-8 md:py-20 space-y-16 md:space-y-32">
         {project.public && (<ProjectOverview project={project} />)}
         <ProjectGallery screenshots={project.screenshots} type={project.type}/>
         {/* <ProjectTechnologies project={project} /> */}
         {/* Technologies Section */}
         <section className="content-section">
-          <h2 className="text-4xl font-bold mb-12 flex items-center gap-4">
-            <Code2 className="text-pink-500" size={40} />
+          <h2 className="text-2xl md:text-4xl font-bold mb-6 md:mb-12 flex items-center gap-2 md:gap-4">
+            <Code2 className="text-pink-500 w-6 h-6 md:w-10 md:h-10" />
             <span>Technologies Utilisées</span>
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
             {project.technologies.map((tech, index) => (
               <motion.div
                 key={tech}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`p-6 rounded-xl backdrop-blur-md border ${
+                className={`p-3 md:p-6 rounded-lg md:rounded-xl backdrop-blur-md border ${
                   project.type === 'personal'
                     ? 'border-pink-500/20 bg-pink-500/5'
                     : 'border-blue-500/20 bg-blue-500/5'
                 }`}
               >
-                <h3 className="text-xl font-semibold mb-2">{tech}</h3>
-                <div className={`h-1 rounded-full ${
+                <h3 className="text-sm md:text-xl font-semibold mb-2 text-center">{tech}</h3>
+                <div className={`h-0.5 md:h-1 rounded-full ${
                   project.type === 'personal'
                     ? 'bg-gradient-to-r from-pink-500 to-purple-500'
                     : 'bg-gradient-to-r from-blue-500 to-cyan-500'

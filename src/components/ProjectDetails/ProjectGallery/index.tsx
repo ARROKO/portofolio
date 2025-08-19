@@ -40,7 +40,7 @@ const ProjectGallery = ({ screenshots, type }: ProjectGalleryProps) => {
     <section className="content-section my-20">
       <h2 className="text-4xl font-bold mb-12">Captures d'écran</h2>
       
-      <div className="relative h-[600px] w-full group">
+      <div className="relative h-[400px] md:h-[600px] w-full group">
         {/* Main Gallery Container */}
         <div className="absolute inset-0 rounded-2xl overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 z-10" />
@@ -75,8 +75,8 @@ const ProjectGallery = ({ screenshots, type }: ProjectGalleryProps) => {
           icon={ChevronRight}
         />
 
-        {/* Preview Images */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4">
+        {/* Preview Images - Hidden on mobile */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 gap-4 hidden md:flex">
           {screenshots.map((src, idx) => (
             <button
               key={src}

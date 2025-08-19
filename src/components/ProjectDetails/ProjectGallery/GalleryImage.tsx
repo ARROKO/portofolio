@@ -44,7 +44,7 @@ export const GalleryImage = ({ src, direction, index }: GalleryImageProps) => (
     <motion.img
       src={src}
       alt={`Screenshot ${index + 1}`}
-      className="w-full h-full object-cover"
+      className="w-full h-full object-contain md:object-cover"
       layoutId={`image-${index}`}
       transition={{ duration: 0.6 }}
     />

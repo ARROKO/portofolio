@@ -54,26 +54,26 @@ const Home = () => {
           ))}
         </div>
         
-        <div className="text-center px-4 py-12 relative z-10">
+        <div className="text-center px-2 md:px-4 py-8 md:py-12 relative z-10">
           {/* Titre principal avec effet parallax */}
           <motion.div
             style={{ y, opacity }}
-            className="mb-8"
+            className="mb-6 md:mb-8"
           >
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-6xl md:text-8xl font-bold text-white mb-6 text-left relative"
+              className="text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-4 md:mb-6 text-left relative"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1, duration: 0.8 }}
-                className="inline-flex items-center gap-2"
+                className="inline-flex items-center gap-1 md:gap-2"
               >
-                <Sparkles className="text-yellow-400 w-8 h-8 md:w-12 md:h-12" />
-                <p className="text-blue-500 text-5xl">Bienvenue😁,</p>
+                <Sparkles className="text-yellow-400 w-6 h-6 md:w-8 md:h-8 lg:w-12 lg:h-12" />
+                <p className="text-blue-500 text-3xl md:text-4xl lg:text-5xl">Bienvenue😁,</p>
               </motion.div>
               <br />
               je suis <span style={customStyle}> Joseph</span>
@@ -91,7 +91,7 @@ const Home = () => {
           transition={{ delay: 2 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400"
         >
-          <span className="text-sm font-medium">Découvrez la suite</span>
+          <span className="text-xs md:text-sm font-medium">Découvrez la suite</span>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}

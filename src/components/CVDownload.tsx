@@ -7,7 +7,7 @@ export const CVDownload = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-center relative overflow-hidden group"
+      className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 md:p-8 text-center relative overflow-hidden group"
     >
       {/* Effet de particules en arrière-plan */}
       <div className="absolute inset-0 bg-grid-pattern opacity-10" />
@@ -18,11 +18,11 @@ export const CVDownload = () => {
         transition={{ delay: 0.4 }}
         className="relative z-10"
       >
-        <FaFileDownload className="text-5xl text-white mx-auto mb-4" />
-        <h3 className="text-2xl font-bold text-white mb-4">
+        <FaFileDownload className="text-3xl md:text-5xl text-white mx-auto mb-3 md:mb-4" />
+        <h3 className="text-lg md:text-2xl font-bold text-white mb-3 md:mb-4">
           Téléchargez mon CV
         </h3>
-        <p className="text-gray-200 mb-6">
+        <p className="text-sm md:text-base text-gray-200 mb-4 md:mb-6">
           Découvrez mon parcours professionnel et mes compétences en détail
         </p>
         <motion.a
@@ -35,13 +35,14 @@ export const CVDownload = () => {
           {/* <FaFileDownload />
           Télécharger le CV */}
         
-        <button className="cursor-pointer group/download relative flex gap-1 px-8 py-4 bg-white text-gray-900 rounded-3xl hover:bg-opacity-70 font-semibold shadow-xl active:shadow-inner transition-all duration-300">
+        <button className="cursor-pointer group/download relative flex gap-1 px-4 md:px-8 py-2 md:py-4 bg-white text-gray-900 rounded-3xl hover:bg-opacity-70 font-semibold shadow-xl active:shadow-inner transition-all duration-300 text-sm md:text-base">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            height="24px"
-            width="24px"
+            height="20px"
+            width="20px"
+            className="md:w-6 md:h-6"
           >
             <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
             <g

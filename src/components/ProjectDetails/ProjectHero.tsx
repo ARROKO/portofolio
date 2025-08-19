@@ -36,7 +36,7 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, opacity, scale }) =>
         }`} />
       </div>
 
-      <div className="relative z-10 text-center px-6">
+      <div className="relative z-10 text-center px-2 md:px-6">
         <motion.div
           className="absolute -top-20 left-1/2 transform -translate-x-1/2"
           initial={{ opacity: 0, y: 50 }}
@@ -53,7 +53,7 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, opacity, scale }) =>
         </motion.div>
 
         <motion.h1 
-          className="text-6xl md:text-8xl font-bold mb-6"
+          className="text-3xl md:text-6xl lg:text-8xl font-bold mb-4 md:mb-6"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -68,7 +68,7 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, opacity, scale }) =>
         </motion.h1>
 
         <motion.p 
-          className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12"
+          className="text-sm md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto mb-6 md:mb-12 px-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -77,27 +77,39 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, opacity, scale }) =>
         </motion.p>
 
         <motion.div 
-          className="flex items-center justify-center gap-6"
+          className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 px-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <a
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 
-              backdrop-blur-md transition-all duration-300"
+          <button
+            onClick={() => {
+              navigate('/');
+              setTimeout(() => {
+                const element = document.getElementById('projects');
+                if (element) {
+                  // Pour mobile, on utilise une approche plus directe
+                  element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                  });
+                }
+              }, 300);
+            }}
+            className="flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full bg-white/10 hover:bg-white/20 
+              backdrop-blur-md transition-all duration-300 text-sm md:text-base w-full md:w-auto justify-center"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft size={16} className="md:w-5 md:h-5" />
             <span>Retour aux projets</span>
-          </a>
+          </button>
           <a
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 
-              backdrop-blur-md transition-all duration-300"
+            className="flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full bg-white/10 hover:bg-white/20 
+              backdrop-blur-md transition-all duration-300 text-sm md:text-base w-full md:w-auto justify-center"
           >
-            <Github size={20} />
+            <Github size={16} className="md:w-5 md:h-5" />
             <span>Code Source</span>
           </a>
           {
@@ -105,11 +117,11 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, opacity, scale }) =>
             href={project.live}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r 
+            className="flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full bg-gradient-to-r 
               from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 
-              transition-all duration-300"
+              transition-all duration-300 text-sm md:text-base w-full md:w-auto justify-center"
           >
-            <ExternalLink size={20} />
+            <ExternalLink size={16} className="md:w-5 md:h-5" />
             <span>Voir le Projet</span>
           </a>
           }

@@ -110,7 +110,7 @@ const CustomCursor = () => {
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {isVisible && !window.matchMedia('(max-width: 768px)').matches && (
         <>
           {/* Curseur principal - Point central avec effet de glow */}
           <motion.div

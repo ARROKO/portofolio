@@ -4,7 +4,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { motion, useScroll } from 'framer-motion';
 import Navbar from './components/Navbar';
 import CustomCursor from './components/CustomCursor';
-import SkillIcon from './components/SkillIcon';
 import { Footer } from './pages/Footer';
 import { CVDownload } from './components/CVDownload';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -120,14 +119,6 @@ const MainContent = () => {
           </div>
         </section>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4 }}
-          className="max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-4xl mx-auto"
-        >
-          <CVDownload />
-        </motion.div>
         <Footer />
       </main>
       <PWAInstallPrompt />

@@ -86,7 +86,7 @@ const Navbar = () => {
     <>
       <motion.nav
         style={{ opacity, scale }}
-        className="fixed top-0 left-1/2 -translate-x-1/2 z-50 py-3 px-6 mt-6 bg-black/20 backdrop-blur-xl rounded-full border border-white/10 shadow-2xl"
+        className="fixed top-0 right-6 z-50 py-3 px-6 mt-6 bg-black/30 backdrop-blur-xl rounded-full border border-white/20 shadow-2xl"
         role="navigation"
         aria-label="Navigation principale"
       >
@@ -146,98 +146,46 @@ const Navbar = () => {
           })}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button - Simplifié */}
         <div className="md:hidden">
-          <motion.button
-            whileHover={{ scale: 1.1, rotate: 90 }}
-            whileTap={{ scale: 0.9 }}
+          <button
             onClick={() => setIsOpen(!isOpen)}
-            className="relative p-3 rounded-full bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent"
+            className="p-2 rounded-lg bg-white/10 text-white transition-colors focus:outline-none"
             aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
           >
-            <motion.div
-              animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
-            </motion.div>
-          </motion.button>
+            {isOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
-      <motion.div
-        initial={false}
-        animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        className={`fixed inset-x-0 top-24 z-40 md:hidden ${isOpen ? 'block' : 'hidden'}`}
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: -10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: -10 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="mx-4 p-6 rounded-2xl bg-black/30 backdrop-blur-xl border border-white/10 shadow-2xl"
-          id="mobile-menu"
-          role="menu"
-          aria-label="Menu de navigation mobile"
-        >
-          <div className="space-y-2">
-            {menuItems.map((item, index) => {
-              const Icon = item.icon;
-              const isActive = activeSection === item.id;
-              
-              return (
-                <motion.button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent ${
-                    isActive
-                      ? 'bg-white/15 text-white shadow-lg'
-                      : 'text-gray-300 hover:text-white hover:bg-white/10'
-                  }`}
-                  role="menuitem"
-                  aria-label={`Naviguer vers ${item.label}`}
-                  aria-current={isActive ? 'page' : undefined}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      scrollToSection(item.id);
-                    }
-                  }}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.3 }}
-                  whileHover={{ x: 8, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Icon 
-                    size={18} 
-                    className={`transition-colors duration-300 ${
-                      isActive ? 'text-blue-400' : 'text-gray-400'
-                    }`} 
-                  />
-                  <span>{item.label}</span>
-                  
-                  {/* Indicateur actif mobile */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="mobileActiveIndicator"
-                      className="ml-auto w-2 h-2 rounded-full bg-blue-400"
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 30
-                      }}
-                    />
-                  )}
-                </motion.button>
-              );
-            })}
+      {/* Mobile Menu - Simplifié */}
+      {isOpen && (
+        <div className="fixed inset-x-0 top-24 z-40 md:hidden">
+          <div className="mx-4 p-4 rounded-xl bg-black/80 backdrop-blur-sm border border-white/20">
+            <div className="space-y-1">
+              {menuItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeSection === item.id;
+                
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`flex items-center gap-3 w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+                      isActive
+                        ? 'bg-white/20 text-white'
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <Icon size={16} />
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      )}
       
       {/* Overlay pour fermer le menu mobile */}
       {isOpen && (

@@ -14,7 +14,6 @@ import { seoData } from "../data/seoData";
 const About = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(5000);
   const [showHoverIcon, setShowHoverIcon] = useState(false);
   const [hoverIconType, setHoverIconType] = useState<'pause' | 'play'>('pause');
 
@@ -23,22 +22,13 @@ const About = () => {
       return;
     }
 
-    const startTime = Date.now();
-    const duration = 5000;
+    const duration = 7000;
     
-    const progressInterval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const remaining = Math.max(0, duration - elapsed);
-      
-      setTimeRemaining(remaining);
-      
-      if (elapsed >= duration) {
-        setCurrentIndex((prev) => (prev + 1) % aboutContent.length);
-        setTimeRemaining(duration);
-      }
-    }, 50);
+    const timer = setTimeout(() => {
+      setCurrentIndex((prev) => (prev + 1) % aboutContent.length);
+    }, duration);
 
-    return () => clearInterval(progressInterval);
+    return () => clearTimeout(timer);
   }, [isPaused, currentIndex]);
 
   const handleMouseEnter = useCallback(() => {
@@ -76,17 +66,75 @@ const About = () => {
 
   const goToSlide = useCallback((index: number) => {
     setCurrentIndex(index);
-    setTimeRemaining(5000);
   }, []);
   return (
     <PageTransition>
       <SEOHead {...seoData.about} url="/about" />
-      <div className="max-w-18xl mx-auto px-4 py-16">
+      <div className="max-w-18xl mx-auto px-2 md:px-4 py-8 md:py-16">
         {/* Hero Section */}
-        <section className="py-8 px-6">
+        <section className="py-4 md:py-8 px-2 md:px-6">
           <div className="max-w-7xl mx-auto">
+            {/* Mobile Layout - Card Slider */}
+            <div className="block md:hidden">
+              <div className="relative h-[50vh] min-h-[400px] max-h-[500px] overflow-hidden rounded-2xl">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ 
+                      duration: 0.4,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute inset-0"
+                    onTouchStart={() => setIsPaused(true)}
+                    onTouchEnd={() => setIsPaused(false)}
+                  >
+                    {/* Background Image */}
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                      style={{
+                        backgroundImage: `url(${aboutContent[currentIndex].image})`
+                      }}
+                    />
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/30" />
+                    
+                    {/* Content */}
+                    <div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
+                      <motion.div
+                        initial={{ y: 50, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
+                      >
+                        <h1 className="text-xl font-bold mb-2 leading-tight">
+                          {aboutContent[currentIndex].title}
+                        </h1>
+                        <p className="text-sm text-gray-200 leading-relaxed mb-3">
+                          {aboutContent[currentIndex].description}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {aboutContent[currentIndex].tags?.map((tag, index) => (
+                            <span 
+                              key={index}
+                              className="px-2 py-0.5 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Desktop Layout */}
             <div
-              className="relative grid md:grid-cols-2 gap-12 items-center cursor-pointer"
+              className="hidden md:grid md:grid-cols-2 gap-12 items-center cursor-pointer"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onClick={handleClick}
@@ -195,7 +243,6 @@ const About = () => {
               {/* Content */}
               <div className="relative">
                 <ContentSlide content={aboutContent[currentIndex]} />
-                
               </div>
             </div>
 
@@ -215,51 +262,14 @@ const About = () => {
                 />
               ))}
             </div>
-            
-            {/* Indicateur de temps élégant */}
-            <motion.div 
-              className="text-center mt-6"
-              animate={{ 
-                opacity: isPaused ? 0.4 : 0.8,
-                y: isPaused ? 2 : 0
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm rounded-full border border-white/10">
-                <motion.div
-                  className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"
-                  animate={{
-                    scale: isPaused ? [1, 0.8, 1] : [1, 1.2, 1],
-                    opacity: isPaused ? 0.5 : [0.5, 1, 0.5]
-                  }}
-                  transition={{
-                    duration: isPaused ? 1 : 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-                <span className="text-sm text-gray-300 font-medium tracking-wider">
-                  {Math.ceil(timeRemaining / 1000)}s
-                </span>
-                {isPaused && (
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-xs text-yellow-400 font-medium"
-                  >
-                    PAUSE
-                  </motion.span>
-                )}
-              </div>
-            </motion.div>
           </div>
         </section>
 
         {/* Stats Section */}
         <Stats />
 
-        {/* Currency & Timeline Section - Side by side */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        {/* Currency & Timeline Section - Responsive */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Currency Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -267,7 +277,7 @@ const About = () => {
             transition={{ delay: 0.6 }}
             className="space-y-6"
           >
-            <h2 className="text-3xl font-bold text-white mb-8">Mes devises</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-6 md:mb-8">Mes devises</h2>
             <Currency />
           </motion.div>
 
@@ -284,7 +294,7 @@ const About = () => {
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl font-bold text-white mb-4">Mon Parcours</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Mon Parcours</h2>
               <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded-full"></div>
             </motion.div>
 
@@ -348,13 +358,13 @@ const About = () => {
                   >
                     {/* Point sur la timeline */}
                     <div className="relative z-10 flex-shrink-0">
-                      <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${experience.color} p-0.5 shadow-lg hover:scale-105 transition-transform duration-200`}>
+                      <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-r ${experience.color} p-0.5 shadow-lg hover:scale-105 transition-transform duration-200`}>
                         <div className="w-full h-full bg-gray-900 rounded-full flex items-center justify-center overflow-hidden">
-                          <div className={`${experience.company === 'BRIDGE Company SARL' ? 'bg-white rounded-full p-1' : ''} flex items-center justify-center`}>
+                          <div className={`${experience.company === 'BRIDGE Company SARL' ? 'bg-white rounded-full p-0.5 md:p-1' : ''} flex items-center justify-center`}>
                             <LazyImage
                               src={experience.logo} 
                               alt={`${experience.company} logo`}
-                              className="w-10 h-10 object-contain filter brightness-110"
+                              className="w-6 h-6 md:w-10 md:h-10 object-contain filter brightness-110"
                             />
                           </div>
                         </div>
@@ -369,33 +379,33 @@ const About = () => {
                     </div>
 
                     {/* Contenu de l'expérience */}
-                    <div className="flex-1 bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 group-hover:bg-white/10">
+                    <div className="flex-1 bg-white/5 backdrop-blur-sm rounded-2xl p-3 md:p-6 border border-white/10 hover:border-white/20 transition-all duration-300 group-hover:bg-white/10">
                       {/* Header */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+                      <div className="flex flex-col gap-2 mb-3">
                         <div>
-                          <h3 className={`text-lg font-bold bg-gradient-to-r ${experience.color} bg-clip-text text-transparent`}>
+                          <h3 className={`text-base md:text-lg font-bold bg-gradient-to-r ${experience.color} bg-clip-text text-transparent`}>
                             {experience.title}
                           </h3>
-                          <p className="text-base text-white font-medium">{experience.company}</p>
+                          <p className="text-sm md:text-base text-white font-medium">{experience.company}</p>
                         </div>
-                        <span className="text-xs text-gray-400 bg-gray-800/50 px-2 py-1 rounded-full">
+                        <span className="text-xs text-gray-400 bg-gray-800/50 px-2 py-1 rounded-full self-start">
                           {experience.period}
                         </span>
                       </div>
                       
                       {/* Description */}
-                      <p className="text-sm text-gray-300 mb-4">
+                      <p className="text-xs md:text-sm text-gray-300 mb-3 md:mb-4">
                         {experience.description}
                       </p>
 
                       {/* Événements et formations (uniquement pour TW Micronics) */}
                       {experience.events && (
-                        <div className="mt-4 pt-4 border-t border-white/10">
-                          <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                            <span className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></span>
-                            Formations & Événements réalisés
+                        <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-white/10">
+                          <h4 className="text-xs md:text-sm font-semibold text-white mb-2 md:mb-3 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></span>
+                            Formations & Événements
                           </h4>
-                          <div className="grid gap-3">
+                          <div className="grid gap-2 md:gap-3">
                             {experience.events.map((event, index) => (
                               <motion.div
                                 key={event.title}
@@ -403,18 +413,18 @@ const About = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/10"
+                                className="bg-white/5 backdrop-blur-sm rounded-lg p-2 md:p-3 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/10"
                               >
-                                <div className="flex items-start gap-3">
-                                  <div className="text-lg flex-shrink-0 mt-0.5">
+                                <div className="flex items-start gap-2 md:gap-3">
+                                  <div className="text-sm md:text-lg flex-shrink-0 mt-0.5">
                                     {event.icon}
                                   </div>
                                   <div className="flex-1 min-w-0">
-                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
-                                      <h5 className="text-sm font-medium text-white truncate">
+                                    <div className="flex flex-col gap-1 mb-1">
+                                      <h5 className="text-xs md:text-sm font-medium text-white leading-tight">
                                         {event.title}
                                       </h5>
-                                      <span className="text-xs text-cyan-400 bg-cyan-400/10 px-2 py-0.5 rounded-full border border-cyan-400/20 flex-shrink-0">
+                                      <span className="text-xs text-cyan-400 bg-cyan-400/10 px-1.5 md:px-2 py-0.5 rounded-full border border-cyan-400/20 self-start">
                                         {event.category}
                                       </span>
                                     </div>
