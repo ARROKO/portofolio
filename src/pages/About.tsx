@@ -258,24 +258,26 @@ const About = () => {
         {/* Stats Section */}
         <Stats />
 
-        {/* Currency Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="space-y-6"
-        >
-          <h2 className="text-3xl font-bold text-white mb-8">Mes devises</h2>
-          <Currency />
-        </motion.div>
+        {/* Currency & Timeline Section - Side by side */}
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Currency Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="space-y-6"
+          >
+            <h2 className="text-3xl font-bold text-white mb-8">Mes devises</h2>
+            <Currency />
+          </motion.div>
 
-        {/* Timeline Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="space-y-8"
-        >
+          {/* Timeline Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="space-y-8"
+          >
             {/* Titre de section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -446,7 +448,7 @@ const About = () => {
             </div>
           </motion.div>
         </div>
-      
+      </div>
     </PageTransition>
   );
 };
