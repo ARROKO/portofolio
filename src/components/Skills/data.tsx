@@ -1,13 +1,7 @@
 export const skills = [
     {
-      category: "Frontend",
+      category: "Langages de programmation",
       items: [
-        {
-          name: "React.js",
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
-          percent: 80,
-        },
         {
           name: "JavaScript",
           logoLink:
@@ -21,16 +15,57 @@ export const skills = [
           percent: 46,
         },
         {
+          name: "PHP",
+          percent: 80,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg",
+        },
+        {
+          name: "Python",
+          percent: 68,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+        },
+        {
+          name: "C#",
+          percent: 75,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg",
+        },
+        {
+          name: "Java",
+          percent: 80,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
+        },
+      ],
+    },
+    {
+      category: "Frontend & Frameworks Web",
+      items: [
+        {
+          name: "React.js",
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+          percent: 80,
+        },
+        {
+          name: "Next.js",
+          percent: 80,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
+        },
+        {
+          name: "Alpine.js",
+          percent: 40,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/alpinejs/alpinejs-original.svg",
+        },
+        {
           name: "Tailwind CSS",
           percent: 60,
           logoLink:
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
-        },
-        {
-          name: "Next.js",
-          percent: 20,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
         },
         {
           name: "Material UI",
@@ -41,7 +76,7 @@ export const skills = [
       ],
     },
     {
-      category: "Backend",
+      category: "Backend & Serveurs",
       items: [
         {
           name: "Node.js",
@@ -54,30 +89,6 @@ export const skills = [
           percent: 25,
           logoLink:
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
-        },
-        {
-          name: "Php",
-          percent: 80,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg",
-        },
-        {
-          name: "Python",
-          percent: 68,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
-        },
-        {
-          name: "PostgreSQL",
-          percent: 50,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
-        },
-        {
-          name: "MySQL",
-          percent: 90,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
         },
         {
           name: "Apache",
@@ -94,7 +105,53 @@ export const skills = [
       ],
     },
     {
-      category: "DevOps",
+      category: "Bases de données & ORM",
+      items: [
+        {
+          name: "MySQL",
+          percent: 90,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
+        },
+        {
+          name: "PostgreSQL",
+          percent: 50,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+        },
+        {
+          name: "Prisma",
+          percent: 70,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg",
+        },
+      ],
+    },
+    {
+      category: "Cloud & BaaS",
+      items: [
+        {
+          name: "Firebase",
+          percent: 80,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg",
+        },
+        {
+          name: "Supabase",
+          percent: 50,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg",
+        },
+        {
+          name: "Azure",
+          percent: 70,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
+        },
+      ],
+    },
+    {
+      category: "DevOps & Outils",
       items: [
         {
           name: "Docker",
@@ -109,10 +166,9 @@ export const skills = [
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
         },
         {
-          name: "Azure",
-          percent: 70,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
+          name: 'Github',
+          percent: 80,
+          logoLink: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
         },
         {
           name: "Linux",
@@ -120,27 +176,16 @@ export const skills = [
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg",
           percent: 88,
         },
-      ],
-    },
-    {
-      category: "Backend as a Service (BaaS)",
-      items: [
         {
-          name: "Firebase",
-          percent: 80,
+          name: "Webpack",
+          percent: 40,
           logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg",
-        },
-        {
-          name: "Supabase",
-          percent: 50,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/webpack/webpack-original.svg",
         },
       ],
     },
     {
-      category: "Cross-Platform Development",
+      category: "Mobile & Cross-Platform",
       items: [
         {
           name: "Flutter",
@@ -151,54 +196,13 @@ export const skills = [
       ],
     },
     {
-      category: "Programming Languages",
-      items: [
-        {
-          name: "C#",
-          percent: 75,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg",
-        },
-        {
-          name: "Java",
-          percent: 80,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
-        },
-      ],
-    },
-    {
-      category: "Outils",
+      category: "IDEs & Éditeurs",
       items: [
         {
           name: "VS Code",
           logoLink:
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg",
           percent: 100,
-        },
-        {
-          name: "Figma",
-          percent: 80,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg",
-        },
-        {
-          name: "Postman",
-          percent: 60,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg",
-        },
-        {
-          name: "Github",
-          percent: 90,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
-        },
-        {
-          name: "Webpack",
-          percent: 40,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/webpack/webpack-original.svg",
         },
         {
           name: "PhpStorm",
@@ -218,8 +222,31 @@ export const skills = [
           logoLink:
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-plain.svg",
         },
+      ],
+    },
+    {
+      category: "Outils & Plateformes",
+      items: [
         {
-          name: "Npm",
+          name: "Figma",
+          percent: 80,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg",
+        },
+        {
+          name: "Postman",
+          percent: 60,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg",
+        },
+        {
+          name: "GitHub",
+          percent: 90,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
+        },
+        {
+          name: "NPM",
           percent: 30,
           logoLink:
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg",
@@ -231,22 +258,22 @@ export const skills = [
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/wordpress/wordpress-plain.svg",
         },
         {
-          name: "Putty",
+          name: "Moodle",
+          percent: 60,
+          logoLink:
+            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/moodle/moodle-original.svg",
+        },
+        {
+          name: "PuTTY",
           percent: 85,
           logoLink:
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/putty/putty-original.svg",
         },
         {
-          name: "Filezilla",
+          name: "FileZilla",
           percent: 85,
           logoLink:
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/filezilla/filezilla-original.svg",
-        },
-        {
-          name: "Moodle",
-          percent: 60,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/moodle/moodle-original.svg",
         },
       ],
     },

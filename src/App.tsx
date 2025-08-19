@@ -24,16 +24,6 @@ import {
   ProjectDetails
 } from './utils/lazyRoutes';
 
-const skills = [
-  { name: "React", progress: 90 },
-  { name: "Node.js", progress: 45 },
-  { name: "Flutter", progress: 98 },
-  { name: "TypeScript", progress: 46 },
-  { name: "Docker", progress: 40 },
-  { name: "Git", progress: 60 },
-  { name: "Azure", progress: 70 },
-  { name: "VS Code", progress: 100 },
-];
 
 // Composant principal qui contient la page d'accueil
 const MainContent = () => {
@@ -99,7 +89,7 @@ const MainContent = () => {
             >
               Compétences
             </motion.h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {skills.map((skill) => (
                 <SkillIcon
                   key={skill.name}
@@ -107,7 +97,7 @@ const MainContent = () => {
                   progress={skill.progress}
                 />
               ))}
-            </div>
+            </div> */}
             <Suspense fallback={<LoadingSpinner color="purple" text="Chargement des compétences..." />}>
               <Skills />
             </Suspense>
