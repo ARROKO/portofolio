@@ -176,6 +176,7 @@ const Contact: React.FC = () => {
             <CVDownload />
           </motion.div>
         </div>
+        
       </div>
     </PageTransition>
   );

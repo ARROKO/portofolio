@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import CustomCursor from './components/CustomCursor';
 import { Footer } from './pages/Footer';
 import { CVDownload } from './components/CVDownload';
+import WaveTransition from './components/WaveTransition';
 import LoadingSpinner from './components/LoadingSpinner';
 import SEOHead from './components/SEO/SEOHead';
 import { seoData } from './data/seoData';
@@ -119,6 +120,9 @@ const MainContent = () => {
           </div>
         </section>
 
+        {/* Wave Transition - Séparation élégante avant le footer */}
+        <WaveTransition />
+        
         <Footer />
       </main>
       <PWAInstallPrompt />
