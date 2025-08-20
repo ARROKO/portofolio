@@ -14,21 +14,14 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           animations: ['framer-motion', 'gsap'],
-          firebase: ['firebase'],
-          particles: ['react-tsparticles', 'tsparticles-slim', 'tsparticles-engine'],
+          particles: ['@tsparticles/react', '@tsparticles/slim', '@tsparticles/engine'],
           routing: ['react-router', 'react-router-dom'],
           ui: ['lucide-react', 'react-icons']
         }
       }
     },
     target: 'esnext',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    }
+    minify: 'esbuild'
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion']

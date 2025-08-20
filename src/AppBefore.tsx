@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, useScroll } from 'framer-motion';
 import Navbar from './components/Navbar';
 import CustomCursor from './components/CustomCursor';
@@ -120,8 +120,6 @@ const MainContent = () => {
 
 // Wrapper qui gère le curseur personnalisé
 const AppWrapper = () => {
-  const location = useLocation();
-  const showNavbar = location.pathname === '/';
 
   useEffect(() => {
     document.body.style.cursor = 'none';

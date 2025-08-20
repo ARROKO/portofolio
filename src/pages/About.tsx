@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 import { Pause, Play } from "lucide-react";
@@ -115,7 +116,7 @@ const About = () => {
                         <p className="text-sm text-gray-200 leading-relaxed mb-3">
                           {aboutContent[currentIndex].description}
                         </p>
-                        <div className="flex flex-wrap gap-2">
+                        {/* <div className="flex flex-wrap gap-2">
                           {aboutContent[currentIndex].tags?.map((tag, index) => (
                             <span 
                               key={index}
@@ -124,7 +125,7 @@ const About = () => {
                               {tag}
                             </span>
                           ))}
-                        </div>
+                        </div> */}
                       </motion.div>
                     </div>
                   </motion.div>

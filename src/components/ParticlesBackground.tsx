@@ -1,21 +1,21 @@
-import { useCallback } from "react";
-import type { Engine } from "tsparticles-engine";
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
+import { useEffect } from "react";
+import Particles from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
+import { tsParticles } from "@tsparticles/engine";
 
 const ParticlesBackground = () => {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
+  useEffect(() => {
+    // Initialiser une seule fois au montage du composant
+    loadSlim(tsParticles);
   }, []);
 
   return (
     <Particles
       id="tsparticles"
-      init={particlesInit}
       options={{
         background: {
           color: {
-            value: 'rgb(17 24 39 / var(--tw-bg-opacity, 1)',
+            value: 'rgb(17 24 39 / var(--tw-bg-opacity, 1))',
           },
         },
         fpsLimit: 30,
@@ -29,7 +29,7 @@ const ParticlesBackground = () => {
               enable: true,
               mode: "repulse",
             },
-            resize: true,
+            resize: { enable: true },
           },
           modes: {
             push: {
@@ -65,7 +65,7 @@ const ParticlesBackground = () => {
           number: {
             density: {
               enable: true,
-              area: 1200,
+              width: 1200,
             },
             value: 40,
           },

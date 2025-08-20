@@ -5,7 +5,6 @@ import { motion, useScroll } from 'framer-motion';
 import Navbar from './components/Navbar';
 import CustomCursor from './components/CustomCursor';
 import { Footer } from './pages/Footer';
-import { CVDownload } from './components/CVDownload';
 import WaveTransition from './components/WaveTransition';
 import LoadingSpinner from './components/LoadingSpinner';
 import SEOHead from './components/SEO/SEOHead';

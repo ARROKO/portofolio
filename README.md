@@ -32,8 +32,7 @@ En tant que développeur polyvalent, je crois fermement que la technologie doit 
 - **GSAP** - Animations avancées
 - **React Particles** - Effets visuels interactifs
 
-### Backend & Services
-- **Firebase** - Base de données et authentification
+### Services
 - **EmailJS** - Service d'envoi d'emails
 - **React Router** - Navigation côté client
 
