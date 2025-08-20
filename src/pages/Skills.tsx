@@ -69,14 +69,14 @@ const Skills = () => {
           </motion.div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
           {skills.map((skillGroup, groupIndex) => (
             <motion.div
               key={skillGroup.category}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: groupIndex * 0.1, duration: 0.5 }}
-              className="relative bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-white/10 overflow-hidden"
+              className="relative bg-white/5 backdrop-blur-sm rounded-2xl p-3 md:p-4 lg:p-6 border border-white/10 overflow-hidden"
             >
               {/* Particules code-style sur la card */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -171,7 +171,7 @@ const Skills = () => {
               </div>
 
               {/* Grille des compétences */}
-              <div className="space-y-2 md:space-y-3">
+              <div className="space-y-1.5 md:space-y-2 lg:space-y-3">
                 {skillGroup.items.map((skill, index) => (
                   <motion.div
                     key={skill.name}

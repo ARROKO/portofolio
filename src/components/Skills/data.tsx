@@ -196,36 +196,7 @@ export const skills = [
       ],
     },
     {
-      category: "IDEs & Éditeurs",
-      items: [
-        {
-          name: "VS Code",
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg",
-          percent: 100,
-        },
-        {
-          name: "PhpStorm",
-          percent: 70,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/phpstorm/phpstorm-original.svg",
-        },
-        {
-          name: "WebStorm",
-          percent: 70,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/webstorm/webstorm-original.svg",
-        },
-        {
-          name: "Visual Studio",
-          percent: 90,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-plain.svg",
-        },
-      ],
-    },
-    {
-      category: "Outils & Plateformes",
+      category: "Outils Professionnels",
       items: [
         {
           name: "Figma",
@@ -240,40 +211,10 @@ export const skills = [
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg",
         },
         {
-          name: "GitHub",
-          percent: 90,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
-        },
-        {
-          name: "NPM",
-          percent: 30,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg",
-        },
-        {
           name: "WordPress",
           percent: 85,
           logoLink:
             "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/wordpress/wordpress-plain.svg",
-        },
-        {
-          name: "Moodle",
-          percent: 60,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/moodle/moodle-original.svg",
-        },
-        {
-          name: "PuTTY",
-          percent: 85,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/putty/putty-original.svg",
-        },
-        {
-          name: "FileZilla",
-          percent: 85,
-          logoLink:
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/filezilla/filezilla-original.svg",
         },
       ],
     },
