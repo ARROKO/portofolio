@@ -7,7 +7,7 @@ export const CVDownload = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 md:p-8 text-center relative overflow-hidden group"
+      className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-4 md:p-8 text-center relative overflow-hidden group w-full md:w-96 lg:w-[28rem]"
     >
       {/* Effet de particules en arrière-plan */}
       <div className="absolute inset-0 bg-grid-pattern opacity-10" />
