@@ -108,9 +108,36 @@ const CustomCursor = () => {
     }
   };
 
+  // Vérifier si le curseur personnalisé est supporté
+  const isCursorSupported = () => {
+    try {
+      // Vérifier si on est sur un appareil tactile
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        return false;
+      }
+      
+      // Vérifier si les animations CSS sont supportées
+      const testElement = document.createElement('div');
+      testElement.style.transform = 'translateX(0px)';
+      if (!testElement.style.transform) {
+        return false;
+      }
+      
+      // Vérifier si requestAnimationFrame est disponible
+      if (!window.requestAnimationFrame) {
+        return false;
+      }
+      
+      return true;
+    } catch (error) {
+      console.warn('Custom cursor not supported:', error);
+      return false;
+    }
+  };
+
   return (
     <AnimatePresence>
-      {isVisible && !window.matchMedia('(max-width: 768px)').matches && (
+      {isVisible && !window.matchMedia('(max-width: 768px)').matches && isCursorSupported() && (
         <>
           {/* Curseur principal - Point central avec effet de glow */}
           <motion.div
