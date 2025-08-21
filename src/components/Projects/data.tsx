@@ -1,16 +1,8 @@
-//modern-school
-import capture9_modern from '../../images/projects-images/modern-school/Screenshot_20231009-171300.png';
-import capture10_modern from '../../images/projects-images/modern-school/Screenshot_20231009-171300.png';
-import capture11_modern from '../../images/projects-images/modern-school/Screenshot_20231009-171313.png';
-import capture12_modern from '../../images/projects-images/modern-school/Screenshot_20231009-171323.png';
-import capture13_modern from '../../images/projects-images/modern-school/Screenshot_20231009-171421.png';
+// Fonction simplifiée pour dossier public
+const getImageUrl = (path: string) => {
+  return `/images/${path}`;
+};
 
-//saloonprived
-import capture1_saloon from '../../images/projects-images/saloonprived/Capture1.png';
-import capture2_saloon from '../../images/projects-images/saloonprived/Capture2.png';
-import capture3_saloon from '../../images/projects-images/saloonprived/Capture3.png';
-import capture4_saloon from '../../images/projects-images/saloonprived/Capture4.png';
-import capture5_saloon from '../../images/projects-images/saloonprived/Capture5.png';
 
 export type ProjectType = 'web' | 'mobile' | 'desktop';
 
@@ -69,13 +61,13 @@ export const projects: Project[] = [
   {
     title: 'Weather app',
     description: "Fournit des prévisions météo locales et globales en temps réel avec une interface simple et intuitive.",
-    image: '/src/images/projects-images/weather-app/cadrage-weather.png',
-    image2: '/src/images/projects-images/weather-app/Capture-ecran-1.png',
+    image: getImageUrl('projects-images/weather-app/cadrage-weather.png'),
+    image2: getImageUrl('projects-images/weather-app/Capture-ecran-1.png'),
     application: 'web',
     screenshots: [
-      '/src/images/projects-images/weather-app/Capture-ecran-1.png',
-      '/src/images/projects-images/weather-app/Capture-ecran-2.png',
-      '/src/images/projects-images/weather-app/Capture-ecran-3.png'
+      getImageUrl('projects-images/weather-app/Capture-ecran-1.png'),
+      getImageUrl('projects-images/weather-app/Capture-ecran-2.png'),
+      getImageUrl('projects-images/weather-app/Capture-ecran-3.png')
     ],
     technologies: ['React', 'Weather API'],
     github: 'https://github.com',
@@ -95,16 +87,16 @@ export const projects: Project[] = [
   {
     title: 'Marvel quiz',
     description: 'Testez vos connaissance sur tous les hero et vilains de l\'univers Marvel',
-    image: '/src/images/projects-images/marvel-quiz/cadrage_marvel.png',
-    image2:'/src/images/projects-images/marvel-quiz/page1.png',
+    image: getImageUrl('projects-images/marvel-quiz/cadrage_marvel.png'),
+    image2: getImageUrl('projects-images/marvel-quiz/page1.png'),
     application: 'desktop',
     screenshots: [
-        '/src/images/projects-images/marvel-quiz/inscription.png',
-        '/src/images/projects-images/marvel-quiz/connexion.png',
-        '/src/images/projects-images/marvel-quiz/game2.png',
-        '/src/images/projects-images/marvel-quiz/game3.png',
-        '/src/images/projects-images/marvel-quiz/game4.png',
-        '/src/images/projects-images/marvel-quiz/game5.png',
+        getImageUrl('projects-images/marvel-quiz/inscription.png'),
+        getImageUrl('projects-images/marvel-quiz/connexion.png'),
+        getImageUrl('projects-images/marvel-quiz/game2.png'),
+        getImageUrl('projects-images/marvel-quiz/game3.png'),
+        getImageUrl('projects-images/marvel-quiz/game4.png'),
+        getImageUrl('projects-images/marvel-quiz/game5.png'),
       ]
     ,
     technologies: ['React', 'Marvel API', 'Axios', 'Firebase'],
@@ -125,13 +117,13 @@ export const projects: Project[] = [
   {
     title: 'Country flags',
     description: " Une application éducative dédiée à la présentation des drapeaux du monde entier. Elle permet aux utilisateurs de découvrir et d'explorer les différents drapeaux, en apprenant davantage sur chaque pays à travers des descriptions et des informations intéressantes ",
-    image: '/src/images/projects-images/country-flags/cadrage-country.png',
-    image2:'/src/images/projects-images/country-flags/screencapture-localhost-5174-2024-12-31-11_55_23.png',
+    image: getImageUrl('projects-images/country-flags/cadrage-country.png'),
+    image2: getImageUrl('projects-images/country-flags/screencapture-localhost-5174-2024-12-31-11_55_23.png'),
     application: 'desktop',
     screenshots: [
-        '/src/images/projects-images/country-flags/screencapture-localhost-5174-2024-12-31-11_55_00.png',
-        '/src/images/projects-images/country-flags/screencapture-localhost-5174-2024-12-31-11_55_23.png',
-        '/src/images/projects-images/country-flags/screencapture-localhost-5174-2024-12-31-11_56_57.png',
+        getImageUrl('projects-images/country-flags/screencapture-localhost-5174-2024-12-31-11_55_00.png'),
+        getImageUrl('projects-images/country-flags/screencapture-localhost-5174-2024-12-31-11_55_23.png'),
+        getImageUrl('projects-images/country-flags/screencapture-localhost-5174-2024-12-31-11_56_57.png'),
       ]
     ,
     technologies: ['React', 'Rest Countries', 'Axios'],
@@ -178,15 +170,15 @@ export const projects: Project[] = [
   {
     title: 'Modern school',
     description: 'Solution complète de gestion d\'établissement scolaire avec gestion des notes génération des rapports',
-    image: '/src/images/project.jpg',
+    image: getImageUrl('project.jpg'),
     technologies: ['Flutter', 'Dart', 'Objectbox'],
     type: 'professional',
     screenshots:  [
-      capture9_modern,
-      capture10_modern,
-      capture11_modern,
-      capture12_modern,
-      capture13_modern
+      getImageUrl('projects-images/modern-school/Screenshot_20231009-171300.png'),
+      getImageUrl('projects-images/modern-school/Screenshot_20231009-171300.png'),
+      getImageUrl('projects-images/modern-school/Screenshot_20231009-171313.png'),
+      getImageUrl('projects-images/modern-school/Screenshot_20231009-171323.png'),
+      getImageUrl('projects-images/modern-school/Screenshot_20231009-171421.png')
     ],
     
     objectif: "",
@@ -196,15 +188,15 @@ export const projects: Project[] = [
   {
     title: 'Saloonprived',
     description: 'Développeur frond-end sur le projet saloonprived',
-    image: '/src/images/project.jpg',
+    image: getImageUrl('project.jpg'),
     technologies: ['Flutter'],
     type: 'professional',
     screenshots:  [
-      capture1_saloon,
-      capture2_saloon,
-      capture3_saloon,
-      capture4_saloon,
-      capture5_saloon
+      getImageUrl('projects-images/saloonprived/Capture1.png'),
+      getImageUrl('projects-images/saloonprived/Capture2.png'),
+      getImageUrl('projects-images/saloonprived/Capture3.png'),
+      getImageUrl('projects-images/saloonprived/Capture4.png'),
+      getImageUrl('projects-images/saloonprived/Capture5.png')
     ],
     objectif: "",
     architecture: "",

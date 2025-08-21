@@ -8,6 +8,11 @@ import { Currency } from "../components/About/Currency";
 import ContentSlide from "../components/About/ContentSlide";
 import StackedImages from "../components/About/StackedImages";
 import { aboutContent } from "../components/About/AboutContent";
+
+// Fonction simplifiée pour dossier public
+const getImageUrl = (path: string) => {
+  return `/images/${path}`;
+};
 import LazyImage from "../components/LazyImage";
 import SEOHead from "../components/SEO/SEOHead";
 import { seoData } from "../data/seoData";
@@ -310,7 +315,7 @@ const About = () => {
                     period: "Février 2024 - Présent",
                     title: "Développeur Junior",
                     company: "TW Micronics",
-                    logo: "/src/images/twmicronics_logo.png",
+                    logo: getImageUrl('twmicronics_logo.png'),
                     description: "Développement d'applications web et maintenance systèmes informatiques.",
                     technologies: ["React", "TypeScript", "Node.js", "PostgreSQL"],
                     color: "from-blue-400 to-cyan-500",
@@ -346,7 +351,7 @@ const About = () => {
                     period: "Février 2023 - Janvier 2024",
                     title: "Développeur Junior",
                     company: "BRIDGE Company SARL",
-                    logo: "/src/images/bridge_logo.png",
+                    logo: getImageUrl('bridge_logo.png'),
                     description: "Application desktop de gestion scolaire et optimisation des processus.",
                     technologies: ["C#", ".NET", "WPF", "SQL Server"],
                     color: "from-purple-400 to-pink-500",

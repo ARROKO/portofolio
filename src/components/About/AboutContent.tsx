@@ -1,34 +1,33 @@
+// Fonction simplifiée pour dossier public
+const getImageUrl = (path: string) => {
+  return `/images/${path}`;
+};
+
+
 export interface AboutContent {
-    id: number;
-    title: string;
-    description: string;
-    image: string;
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+}
+
+export const aboutContent: AboutContent[] = [
+  {
+    id: 1,
+    title: "Développeur Junior Passionné",
+    description: "Avec une solide formation en informatique et une passion pour le développement web, je me spécialise dans la création d'applications modernes et performantes. Mon parcours m'a permis d'acquérir une expertise technique solide tout en développant une approche créative pour résoudre les défis technologiques.",
+    image: getImageUrl("about-content.jpeg")
+  },
+  {
+    id: 2,
+    title: "Innovation & Créativité",
+    description: "Je crois fermement que l'innovation naît de la combinaison entre créativité et rigueur technique. Chaque projet est une opportunité d'explorer de nouvelles solutions, d'optimiser les performances et de créer des expériences utilisateur exceptionnelles qui marquent la différence.",
+    image: getImageUrl("about-content2.jpeg")
+  },
+  {
+    id: 3,
+    title: "Vision & Ambition",
+    description: "Mon objectif est de contribuer activement à l'évolution du web en développant des solutions qui ont un impact réel. Je m'efforce constamment d'apprendre, de me perfectionner et de rester à la pointe des technologies pour offrir des produits de qualité supérieure.",
+    image: getImageUrl("about-content3.jpeg")
   }
-  
-  export const aboutContent: AboutContent[] = [
-    {
-      id: 1,
-      title: "Développeur Junior Passionné",
-      description: "En tant que développeur junior, je suis animé par une passion profonde pour le développement d'applications élégantes et performantes. Chaque ligne de code que j'écris est imprégnée de mon amour pour la beauté et la simplicité, avec une attention particulière aux détails qui rendent une application unique.",
-      image: "/src/images/about-content.jpeg"
-    },
-    {
-      id: 2,
-      title: "Amateur de Simplicité Élégante",
-      description: "Je crois fermement que la simplicité est la clé de l'élégance, non seulement dans mes créations, mais aussi dans ma vie quotidienne. Que ce soit dans mon style vestimentaire ou dans mon code, j'opte toujours pour des solutions épurées et efficaces. Mon entourage me décrit comme une personne calme et posée, ce qui se reflète dans mon approche méthodique du développement.",
-      image: "/src/images/about-content2.jpeg"
-    },
-    {
-      id: 3,
-      title: "Créativité au Service de la Beauté",
-      description: "La créativité est au cœur de mon travail. J'aime fusionner design et technologie pour créer des expériences utilisateur harmonieuses et esthétiques. Mon objectif est de rendre chaque interaction aussi intuitive que possible, en mettant en valeur la beauté à travers des interfaces utilisateur soignées.",
-      image: "/src/images/about-content3.jpeg"
-    },
-    {
-      id: 4,
-      title: "Apprenant Constamment",
-      description: "En tant que développeur junior, je suis constamment à la recherche de nouvelles connaissances et compétences. Le monde du développement est en perpétuelle évolution, et je m'efforce de rester à jour avec les dernières technologies et méthodologies. Cette quête d'apprentissage continu nourrit ma passion et renforce ma détermination à exceller.",
-      image: "/src/images/about-content4.jpeg"
-    }
-  ];
-  
+];
