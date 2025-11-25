@@ -26,7 +26,7 @@ export const CVDownload = () => {
           Découvrez mon parcours professionnel et mes compétences en détail
         </p>
         <motion.a
-          href="/public/doc/CV_2024-12-24_Joseph_Kemgang.pdf"
+          href="/public/doc/cv_joseph_kemgang_tombou.pdf"
           download="Joseph-CV.pdf"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -65,7 +65,7 @@ export const CVDownload = () => {
           </svg>
           Download
           <div className="absolute text-white text-xs uppercase scale-0 rounded-md py-2 px-2 bg-[#5c5fe9] left-2/4 mb-3 bottom-full group-hover/download:scale-100 origin-bottom transition-all duration-300 shadow-lg before:content-[''] before:absolute before:top-full before:left-2/4 before:w-3 before:h-3 before:border-solid before:bg-[#5c5fe9] before:rotate-45 before:-translate-y-2/4 before:-translate-x-2/4">
-            107 ko
+            642 ko
           </div>
         </button>
         </motion.a>
