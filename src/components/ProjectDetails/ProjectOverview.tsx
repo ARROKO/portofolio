@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Layout, Target, Users } from 'lucide-react';
-import { Project } from '../Projects/data';
+import type { Project } from '../../data/projectsData';
 
 interface ProjectOverviewProps {
   project: Project;

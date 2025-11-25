@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import PageTransition from '../components/PageTransition';
 import ProjectCard from '../components/Projects/ProjectCard';
-import { projects } from '../components/Projects/data';
+import { projects } from '../data/projectsData';
 import SEOHead from '../components/SEO/SEOHead';
 import { seoData } from '../data/seoData';
 

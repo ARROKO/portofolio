@@ -3,7 +3,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useParams, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { Code2 } from 'lucide-react';
-import { projects } from '../components/Projects/data';
+import { projects } from '../data/projectsData';
+import type { Project } from '../data/projectsData';
 import ProjectHero from '../components/ProjectDetails/ProjectHero';
 import ProjectOverview from '../components/ProjectDetails/ProjectOverview';
 import ProjectGallery from '../components/ProjectDetails/ProjectGallery';
@@ -13,7 +14,7 @@ import { getProjectSEO } from '../data/seoData';
 const ProjectDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const project = projects.find(p => p.title.toLowerCase().replace(/\s+/g, '-') === id);
+  const project = projects.find((p: Project) => p.title.toLowerCase().replace(/\s+/g, '-') === id);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -85,7 +86,7 @@ const ProjectDetails = () => {
             <span>Technologies Utilisées</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
-            {project.technologies.map((tech, index) => (
+            {project.technologies.map((tech: string, index: number) => (
               <motion.div
                 key={tech}
                 initial={{ opacity: 0, y: 20 }}

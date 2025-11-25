@@ -20,7 +20,7 @@ interface SkillIconProps {
 }
 
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, typeof Globe> = {
   'React': Globe,
   'Node.js': Server,
   'MongoDB': Database,

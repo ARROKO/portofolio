@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Github, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Project } from './data';
+import type { Project } from '../../data/projectsData';
 import LazyImage from '../LazyImage';
 
 interface ProjectCardProps {
@@ -55,7 +55,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         
         {/* Technologies */}
         <div className={`flex flex-wrap gap-2 mb-3 md:mb-4 transform transition-all duration-500 delay-100 md:translate-y-8 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100 md:translate-y-8 md:opacity-0'}`}>
-          {project.technologies.map((tech) => (
+          {project.technologies.map((tech: string) => (
             <span
               key={tech}
               className="px-2 md:px-3 py-1 text-xs md:text-sm bg-white/20 rounded-full backdrop-blur-sm"

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, ArrowLeft } from 'lucide-react';
-import { Project } from '../Projects/data';
+import type { Project } from '../../data/projectsData';
 import { useNavigate } from 'react-router-dom';
 import LazyImage from '../LazyImage';
 
