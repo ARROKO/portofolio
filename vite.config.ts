@@ -14,6 +14,7 @@ export default defineConfig({
       exclude: /project\.jpg$/,
     }),
   ],
+  base: "/portofolio",
   server: {
     host: true, // Expose sur toutes les interfaces réseau
     port: 5173,
