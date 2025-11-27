@@ -1,7 +1,7 @@
 import { useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { motion, useScroll } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import Navbar from './components/Navbar';
 import CustomCursor from './components/CustomCursor';
 import { Footer } from './pages/Footer';
@@ -28,6 +28,11 @@ import {
 // Composant principal qui contient la page d'accueil
 const MainContent = () => {
   const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   return (
     <div className="relative min-h-screen text-white overflow-x-hidden">
@@ -36,8 +41,8 @@ const MainContent = () => {
       <CustomCursor />
       <Navbar />
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-blue-500 origin-left z-50"
-        style={{ scaleX: scrollYProgress }}
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 origin-left z-50"
+        style={{ scaleX }}
       />
 
       <main id="main-content" tabIndex={-1}>
