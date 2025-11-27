@@ -12,6 +12,7 @@ import { seoData } from './data/seoData';
 import SkipLinks from './components/SkipLinks';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import './styles/accessibility.css';
+import ScrollManager from './components/ScrollManager';
 
 // Lazy loading optimisé avec code splitting
 import {
@@ -88,15 +89,6 @@ const MainContent = () => {
             >
               Compétences
             </motion.h2>
-            {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {skills.map((skill) => (
-                <SkillIcon
-                  key={skill.name}
-                  name={skill.name}
-                  progress={skill.progress}
-                />
-              ))}
-            </div> */}
             <Suspense fallback={<LoadingSpinner color="purple" text="Chargement des compétences..." />}>
               <Skills />
             </Suspense>
@@ -121,7 +113,7 @@ const MainContent = () => {
 
         {/* Wave Transition - Séparation élégante avant le footer */}
         <WaveTransition />
-        
+
         <Footer />
       </main>
       <PWAInstallPrompt />
@@ -143,7 +135,7 @@ const AppWrapper = () => {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ 
+    <div className="min-h-screen" style={{
       background: '#1a1a2e',
       minHeight: '100vh'
     }}>
@@ -165,7 +157,9 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <AppWrapper />
+        <ScrollManager>
+          <AppWrapper />
+        </ScrollManager>
       </Router>
     </HelmetProvider>
   );

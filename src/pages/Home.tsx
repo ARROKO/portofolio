@@ -10,23 +10,23 @@ const Home = () => {
     target: ref,
     offset: ["start start", "end start"]
   });
-  
+
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
-  
+
   const customStyle: React.CSSProperties = {
     fontFamily: '"Parisienne", serif',
     fontWeight: 400,
     fontStyle: 'normal'
   };
-  
+
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  
+
   return (
     <PageTransition>
       <div ref={ref} className="relative min-h-screen flex flex-col justify-center">
@@ -53,7 +53,7 @@ const Home = () => {
             />
           ))}
         </div>
-        
+
         <div className="text-center px-2 md:px-4 py-8 md:py-12 relative z-10">
           {/* Titre principal avec effet parallax */}
           <motion.div
@@ -77,13 +77,13 @@ const Home = () => {
               </motion.div>
               <br />
               je suis <span style={customStyle}> Joseph</span>
-              
+
             </motion.h1>
           </motion.div>
-          
+
           <DeveloperTypeSlider />
         </div>
-        
+
         {/* Indicateur de scroll */}
         <motion.div
           initial={{ opacity: 0 }}
