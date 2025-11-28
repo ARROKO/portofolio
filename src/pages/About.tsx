@@ -18,34 +18,29 @@ const About = () => {
   const [progress, setProgress] = useState(0);
   const SLIDE_DURATION = 7000;
 
-  // Slide timer
+  // Unified Timer Logic
   useEffect(() => {
     if (isPaused) return;
 
-    const timer = setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % aboutContent.length);
-      setProgress(0);
-    }, SLIDE_DURATION);
-
-    return () => clearTimeout(timer);
-  }, [isPaused, currentIndex]);
-
-  // Progress bar timer
-  useEffect(() => {
-    if (isPaused) return;
-
+    // Calculate start time based on current progress to resume smoothly
     const startTime = Date.now() - (progress / 100) * SLIDE_DURATION;
 
     const progressInterval = setInterval(() => {
       const elapsed = Date.now() - startTime;
-      const newProgress = Math.min((elapsed / SLIDE_DURATION) * 100, 100);
-      setProgress(newProgress);
+      const newProgress = (elapsed / SLIDE_DURATION) * 100;
 
-      if (newProgress >= 100) clearInterval(progressInterval);
+      if (newProgress >= 100) {
+        // Slide finished
+        setCurrentIndex((prev) => (prev + 1) % aboutContent.length);
+        setProgress(0);
+        clearInterval(progressInterval);
+      } else {
+        setProgress(newProgress);
+      }
     }, 16); // ~60fps
 
     return () => clearInterval(progressInterval);
-  }, [isPaused, currentIndex]);
+  }, [isPaused, currentIndex]); // Re-run when slide changes or pause state changes
 
   const handleMouseEnter = useCallback(() => {
     setIsPaused(true);
@@ -68,6 +63,7 @@ const About = () => {
 
   const goToSlide = useCallback((index: number) => {
     setCurrentIndex(index);
+    setProgress(0); // Reset progress when manually changing slide
   }, []);
 
   return (
@@ -146,8 +142,8 @@ const About = () => {
                   currentIndex={currentIndex}
                 />
 
-                {/* Nano-Progress Bar */}
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/10 overflow-hidden rounded-b-3xl z-20">
+                {/* Nano-Progress Bar (Top Position) */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-white/10 overflow-hidden rounded-t-3xl z-20">
                   <motion.div
                     className="h-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"
                     style={{ width: `${progress}%` }}
@@ -169,8 +165,8 @@ const About = () => {
                   key={index}
                   onClick={() => goToSlide(index)}
                   className={`w-2 h-1 rounded-full transition-all duration-300 ${index === currentIndex
-                    ? "bg-white scale-125"
-                    : "bg-white/30 hover:bg-white/60"
+                      ? "bg-white scale-125"
+                      : "bg-white/30 hover:bg-white/60"
                     }`}
                   aria-label={`Slide ${index + 1}`}
                 />
