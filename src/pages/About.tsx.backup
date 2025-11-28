@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
+import { Pause, Play } from "lucide-react";
 import PageTransition from "../components/PageTransition";
 import { Stats } from "../components/About/Stats";
 import { Currency } from "../components/About/Currency";
@@ -15,50 +16,49 @@ import { seoData } from "../data/seoData";
 const About = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const SLIDE_DURATION = 7000;
+  const [showHoverIcon, setShowHoverIcon] = useState(false);
+  const [hoverIconType, setHoverIconType] = useState<'pause' | 'play'>('pause');
 
-  // Slide timer
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused) {
+      return;
+    }
 
+    const duration = 7000;
+    
     const timer = setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % aboutContent.length);
-      setProgress(0);
-    }, SLIDE_DURATION);
+    }, duration);
 
     return () => clearTimeout(timer);
   }, [isPaused, currentIndex]);
 
-  // Progress bar timer
-  useEffect(() => {
-    if (isPaused) return;
-
-    const startTime = Date.now() - (progress / 100) * SLIDE_DURATION;
-
-    const progressInterval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const newProgress = Math.min((elapsed / SLIDE_DURATION) * 100, 100);
-      setProgress(newProgress);
-
-      if (newProgress >= 100) clearInterval(progressInterval);
-    }, 16); // ~60fps
-
-    return () => clearInterval(progressInterval);
-  }, [isPaused, currentIndex]);
-
   const handleMouseEnter = useCallback(() => {
     setIsPaused(true);
+    setHoverIconType('pause');
+    setShowHoverIcon(true);
+    
+    // Masquer l'icône après 800ms
+    setTimeout(() => {
+      setShowHoverIcon(false);
+    }, 800);
   }, []);
 
   const handleMouseLeave = useCallback(() => {
     setIsPaused(false);
+    setHoverIconType('play');
+    setShowHoverIcon(true);
+    
+    // Masquer l'icône après 800ms
+    setTimeout(() => {
+      setShowHoverIcon(false);
+    }, 800);
   }, []);
 
   const togglePause = useCallback(() => {
     setIsPaused(prev => !prev);
   }, []);
-
+  
   const handleClick = useCallback(() => {
     // Sur mobile, un tap toggle la pause
     if (window.innerWidth < 768) {
@@ -69,7 +69,6 @@ const About = () => {
   const goToSlide = useCallback((index: number) => {
     setCurrentIndex(index);
   }, []);
-
   return (
     <PageTransition>
       <SEOHead {...seoData.about} url="/about" />
@@ -86,7 +85,7 @@ const About = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{
+                    transition={{ 
                       duration: 0.4,
                       ease: "easeInOut"
                     }}
@@ -95,16 +94,16 @@ const About = () => {
                     onTouchEnd={() => setIsPaused(false)}
                   >
                     {/* Background Image */}
-                    <div
+                    <div 
                       className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                       style={{
                         backgroundImage: `url(${aboutContent[currentIndex].image})`
                       }}
                     />
-
+                    
                     {/* Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/30" />
-
+                    
                     {/* Content */}
                     <div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
                       <motion.div
@@ -118,6 +117,16 @@ const About = () => {
                         <p className="text-sm text-gray-200 leading-relaxed mb-3">
                           {aboutContent[currentIndex].description}
                         </p>
+                        {/* <div className="flex flex-wrap gap-2">
+                          {aboutContent[currentIndex].tags?.map((tag, index) => (
+                            <span 
+                              key={index}
+                              className="px-2 py-0.5 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div> */}
                       </motion.div>
                     </div>
                   </motion.div>
@@ -126,52 +135,131 @@ const About = () => {
             </div>
 
             {/* Desktop Layout */}
-            <motion.div
-              className="hidden md:grid md:grid-cols-2 gap-12 items-center cursor-pointer group"
+            <div
+              className="hidden md:grid md:grid-cols-2 gap-12 items-center cursor-pointer"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onClick={handleClick}
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               {/* Stacked Images */}
-              <div className="relative" style={{ perspective: "1000px" }}>
-                {/* Glow Effect Container */}
-                <motion.div
-                  className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                />
-
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="relative"
+                style={{ perspective: "1000px" }}
+              >
                 <StackedImages
                   images={aboutContent}
                   currentIndex={currentIndex}
                 />
-
-                {/* Nano-Progress Bar */}
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/10 overflow-hidden rounded-b-3xl z-20">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"
-                    style={{ width: `${progress}%` }}
-                    transition={{ duration: 0, ease: "linear" }}
-                  />
-                </div>
-              </div>
+                
+                {/* Animation d'icône temporaire - Version améliorée */}
+                <AnimatePresence>
+                  {showHoverIcon && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.3, rotate: -180 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      exit={{ opacity: 0, scale: 0.3, rotate: 180 }}
+                      transition={{ 
+                        duration: 0.5, 
+                        ease: "backOut",
+                        rotate: { duration: 0.6 }
+                      }}
+                      className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
+                    >
+                      <motion.div
+                        initial={{ scale: 0.8, y: 10 }}
+                        animate={{ 
+                          scale: [0.8, 1.2, 1], 
+                          y: [10, -5, 0],
+                          boxShadow: [
+                            "0 0 0 0 rgba(255,255,255,0)",
+                            "0 0 20px 10px rgba(255,255,255,0.1)",
+                            "0 0 0 0 rgba(255,255,255,0)"
+                          ]
+                        }}
+                        transition={{ 
+                          duration: 0.6, 
+                          ease: "easeOut",
+                          times: [0, 0.6, 1]
+                        }}
+                        className="relative bg-gradient-to-br from-white/25 to-white/10 backdrop-blur-xl rounded-full p-5 border border-white/40 shadow-2xl"
+                      >
+                        {/* Effet de glow interne */}
+                        <motion.div
+                          className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20"
+                          animate={{
+                            opacity: [0.3, 0.7, 0.3],
+                            scale: [0.8, 1.1, 0.8]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        />
+                        
+                        <motion.div
+                          animate={{
+                            rotate: hoverIconType === 'pause' ? [0, -5, 5, 0] : [0, -5, 5, 0]
+                          }}
+                          transition={{
+                            duration: 0.4,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          {hoverIconType === 'pause' ? (
+                            <Pause className="w-10 h-10 text-white drop-shadow-lg" />
+                          ) : (
+                            <Play className="w-10 h-10 text-white ml-1 drop-shadow-lg" />
+                          )}
+                        </motion.div>
+                        
+                        {/* Particules décoratives */}
+                        {[...Array(6)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="absolute w-1 h-1 bg-white/60 rounded-full"
+                            style={{
+                              left: `${20 + Math.cos(i * 60 * Math.PI / 180) * 40}px`,
+                              top: `${20 + Math.sin(i * 60 * Math.PI / 180) * 40}px`,
+                            }}
+                            animate={{
+                              scale: [0, 1, 0],
+                              opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 1,
+                              delay: i * 0.1,
+                              ease: "easeOut"
+                            }}
+                          />
+                        ))}
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
               {/* Content */}
               <div className="relative">
                 <ContentSlide content={aboutContent[currentIndex]} />
               </div>
-            </motion.div>
+            </div>
 
+            
             {/* Navigation simple */}
             <div className="flex justify-center items-center gap-2 mt-8">
               {aboutContent.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-2 h-1 rounded-full transition-all duration-300 ${index === currentIndex
-                    ? "bg-white scale-125"
-                    : "bg-white/30 hover:bg-white/60"
-                    }`}
+                  className={`w-2 h-1 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                      ? "bg-white scale-125"
+                      : "bg-white/30 hover:bg-white/60"
+                  }`}
                   aria-label={`Slide ${index + 1}`}
                 />
               ))}
@@ -216,7 +304,7 @@ const About = () => {
             <div className="relative">
               {/* Ligne verticale */}
               <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 via-purple-500 to-pink-500"></div>
-
+              
               <div className="space-y-8">
                 {[
                   {
@@ -276,14 +364,14 @@ const About = () => {
                         <div className="w-full h-full bg-gray-900 rounded-full flex items-center justify-center overflow-hidden">
                           <div className={`${experience.company === 'BRIDGE Company SARL' ? 'bg-white rounded-full p-0.5 md:p-1' : ''} flex items-center justify-center`}>
                             <LazyImage
-                              src={experience.logo}
+                              src={experience.logo} 
                               alt={`${experience.company} logo`}
                               className="w-6 h-6 md:w-10 md:h-10 object-contain filter brightness-110"
                             />
                           </div>
                         </div>
                       </div>
-
+                      
                       {/* Badge "Actuel" */}
                       {experience.isActive && (
                         <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-lg">
@@ -306,7 +394,7 @@ const About = () => {
                           {experience.period}
                         </span>
                       </div>
-
+                      
                       {/* Description */}
                       <p className="text-xs md:text-sm text-gray-300 mb-3 md:mb-4">
                         {experience.description}
@@ -352,7 +440,20 @@ const About = () => {
                           </div>
                         </div>
                       )}
-                    </div>
+                      
+                      {/* Technologies */}
+                      {/* <div className="flex flex-wrap gap-2">
+                        {experience.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className={`px-2 py-1 text-xs bg-gradient-to-r ${experience.color} bg-opacity-20 text-white rounded-full border border-white/20`}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div> */}
+                      
+                      </div>
                   </div>
                 ))}
               </div>
