@@ -1,81 +1,76 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
-const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
-  const rafRef = useRef<number>();
+export const CustomCursor = () => {
+  const [isHovering, setIsHovering] = useState(false);
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
 
-  const updateCursorPosition = useCallback((e: MouseEvent) => {
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-    }
-    
-    rafRef.current = requestAnimationFrame(() => {
-      setPosition({ x: e.clientX, y: e.clientY });
-    });
-  }, []);
+  const springConfig = { damping: 25, stiffness: 700 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    const handleMouseEnter = () => setIsVisible(true);
-    const handleMouseLeave = () => setIsVisible(false);
+    const moveCursor = (e: MouseEvent) => {
+      cursorX.set(e.clientX - 16);
+      cursorY.set(e.clientY - 16);
+    };
 
-    window.addEventListener('mousemove', updateCursorPosition);
-    document.addEventListener('mouseenter', handleMouseEnter);
-    document.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      window.removeEventListener('mousemove', updateCursorPosition);
-      document.removeEventListener('mouseenter', handleMouseEnter);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Check if hovering over clickable elements or specific data-cursor-hover elements
+      if (
+        target.tagName.toLowerCase() === 'a' ||
+        target.tagName.toLowerCase() === 'button' ||
+        target.closest('a') ||
+        target.closest('button') ||
+        target.closest('[data-cursor="hover"]')
+      ) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
       }
     };
-  }, [updateCursorPosition]);
 
+    window.addEventListener('mousemove', moveCursor);
+    window.addEventListener('mouseover', handleMouseOver);
 
-
-  // Vérifier si le curseur personnalisé est supporté
-  const isCursorSupported = () => {
-    try {
-      // Vérifier si on est sur un appareil tactile
-      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-        return false;
-      }
-      
-      // Vérifier si les animations CSS sont supportées
-      const testElement = document.createElement('div');
-      testElement.style.transform = 'translateX(0px)';
-      if (!testElement.style.transform) {
-        return false;
-      }
-      
-      // Vérifier si requestAnimationFrame est disponible
-      if (!window.requestAnimationFrame) {
-        return false;
-      }
-      
-      return true;
-    } catch (error) {
-      console.warn('Custom cursor not supported:', error);
-      return false;
-    }
-  };
+    return () => {
+      window.removeEventListener('mousemove', moveCursor);
+      window.removeEventListener('mouseover', handleMouseOver);
+    };
+  }, [cursorX, cursorY]);
 
   return (
-    <>
-      {isVisible && !window.matchMedia('(max-width: 768px)').matches && isCursorSupported() && (
-        <div
-          className="fixed top-0 left-0 w-2 h-2 pointer-events-none z-[9999]"
-          style={{
-            transform: `translate(${position.x - 4}px, ${position.y - 4}px)`,
-          }}
-        >
-          <div className="w-full h-full bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full" />
-        </div>
-      )}
-    </>
+    <motion.div
+      className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9999] mix-blend-difference"
+      style={{
+        x: cursorXSpring,
+        y: cursorYSpring,
+      }}
+    >
+      {/* Central Dot */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 w-2 h-2 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"
+        animate={{
+          scale: isHovering ? 0.5 : 1,
+        }}
+      />
+
+      {/* Orbit Ring */}
+      <motion.div
+        className="absolute top-0 left-0 w-full h-full border border-white rounded-full"
+        animate={{
+          scale: isHovering ? 1.5 : 1,
+          opacity: isHovering ? 1 : 0.5,
+          borderWidth: isHovering ? '2px' : '1px',
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 20
+        }}
+      />
+    </motion.div>
   );
 };
-
-export default CustomCursor;

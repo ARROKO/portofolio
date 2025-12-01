@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import Navbar from './components/Navbar';
-import CustomCursor from './components/CustomCursor';
+import { CustomCursor } from './components/CustomCursor';
 import { Footer } from './pages/Footer';
 import WaveTransition from './components/WaveTransition';
 import LoadingSpinner from './components/LoadingSpinner';

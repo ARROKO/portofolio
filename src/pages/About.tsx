@@ -123,12 +123,13 @@ const About = () => {
 
             {/* Desktop Layout */}
             <motion.div
-              className="hidden md:grid md:grid-cols-2 gap-12 items-center cursor-pointer group"
+              className="hidden md:grid md:grid-cols-2 gap-12 items-center cursor-none group"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onClick={handleClick}
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
+              data-cursor="hover"
             >
               {/* Stacked Images */}
               <div className="relative" style={{ perspective: "1000px" }}>
