@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import { CustomCursor } from './components/CustomCursor';
 import { Footer } from './pages/Footer';
 import WaveTransition from './components/WaveTransition';
-import SoftLoader from './components/SoftLoader';
+import QuantumLoader from './components/QuantumLoader';
 import SEOHead from './components/SEO/SEOHead';
 import { seoData } from './data/seoData';
 import SkipLinks from './components/SkipLinks';
@@ -47,7 +47,7 @@ const MainContent = () => {
 
       <main id="main-content" tabIndex={-1}>
         <section id="home" className="min-h-screen flex items-center justify-center">
-          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><SoftLoader /></div>}>
+          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><QuantumLoader /></div>}>
             <Home />
           </Suspense>
         </section>
@@ -62,7 +62,7 @@ const MainContent = () => {
             >
               À Propos
             </motion.h2>
-            <Suspense fallback={<SoftLoader />}>
+            <Suspense fallback={<QuantumLoader />}>
               <About />
             </Suspense>
           </div>
@@ -78,7 +78,7 @@ const MainContent = () => {
             >
               Projets
             </motion.h2>
-            <Suspense fallback={<SoftLoader />}>
+            <Suspense fallback={<QuantumLoader />}>
               <Projects />
             </Suspense>
           </div>
@@ -94,7 +94,7 @@ const MainContent = () => {
             >
               Compétences
             </motion.h2>
-            <Suspense fallback={<SoftLoader />}>
+            <Suspense fallback={<QuantumLoader />}>
               <Skills />
             </Suspense>
           </div>
@@ -110,7 +110,7 @@ const MainContent = () => {
             >
               Contact
             </motion.h2>
-            <Suspense fallback={<SoftLoader />}>
+            <Suspense fallback={<QuantumLoader />}>
               <Contact />
             </Suspense>
           </div>
@@ -148,7 +148,7 @@ const AppWrapper = () => {
       <Routes>
         <Route path="/" element={<MainContent />} />
         <Route path="/project/:id" element={
-          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><SoftLoader /></div>}>
+          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><QuantumLoader /></div>}>
             <ProjectDetails />
           </Suspense>
         } />
