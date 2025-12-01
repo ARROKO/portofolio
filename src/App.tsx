@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import { CustomCursor } from './components/CustomCursor';
 import { Footer } from './pages/Footer';
 import WaveTransition from './components/WaveTransition';
-import LoadingSpinner from './components/LoadingSpinner';
+import SoftLoader from './components/SoftLoader';
 import SEOHead from './components/SEO/SEOHead';
 import { seoData } from './data/seoData';
 import SkipLinks from './components/SkipLinks';
@@ -47,7 +47,7 @@ const MainContent = () => {
 
       <main id="main-content" tabIndex={-1}>
         <section id="home" className="min-h-screen flex items-center justify-center">
-          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><LoadingSpinner size="lg" color="purple" text="Chargement de l'accueil..." /></div>}>
+          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><SoftLoader /></div>}>
             <Home />
           </Suspense>
         </section>
@@ -62,7 +62,7 @@ const MainContent = () => {
             >
               À Propos
             </motion.h2>
-            <Suspense fallback={<LoadingSpinner color="purple" text="Chargement de la section À propos..." />}>
+            <Suspense fallback={<SoftLoader />}>
               <About />
             </Suspense>
           </div>
@@ -78,7 +78,7 @@ const MainContent = () => {
             >
               Projets
             </motion.h2>
-            <Suspense fallback={<LoadingSpinner color="blue" text="Chargement des projets..." />}>
+            <Suspense fallback={<SoftLoader />}>
               <Projects />
             </Suspense>
           </div>
@@ -94,7 +94,7 @@ const MainContent = () => {
             >
               Compétences
             </motion.h2>
-            <Suspense fallback={<LoadingSpinner color="purple" text="Chargement des compétences..." />}>
+            <Suspense fallback={<SoftLoader />}>
               <Skills />
             </Suspense>
           </div>
@@ -110,7 +110,7 @@ const MainContent = () => {
             >
               Contact
             </motion.h2>
-            <Suspense fallback={<LoadingSpinner color="pink" text="Chargement du formulaire de contact..." />}>
+            <Suspense fallback={<SoftLoader />}>
               <Contact />
             </Suspense>
           </div>
@@ -148,7 +148,7 @@ const AppWrapper = () => {
       <Routes>
         <Route path="/" element={<MainContent />} />
         <Route path="/project/:id" element={
-          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><LoadingSpinner size="lg" color="blue" text="Chargement du projet..." /></div>}>
+          <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><SoftLoader /></div>}>
             <ProjectDetails />
           </Suspense>
         } />
