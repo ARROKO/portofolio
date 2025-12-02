@@ -51,7 +51,8 @@ export const CustomCursor = () => {
     >
       {/* Central Dot */}
       <motion.div
-        className="absolute top-1/2 left-1/2 w-2 h-2 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"
+        className="absolute top-1/2 left-1/2 w-2 h-2 bg-white rounded-full"
+        style={{ x: "-50%", y: "-50%" }}
         animate={{
           scale: isHovering ? 0.5 : 1,
         }}
