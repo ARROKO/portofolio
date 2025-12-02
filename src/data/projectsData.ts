@@ -42,6 +42,7 @@ import accountStateProScreen1 from '../assets/images/projects-images/account-sta
 import accountStateProScreen2 from '../assets/images/projects-images/account-state/img2.png';
 import accountStateProScreen3 from '../assets/images/projects-images/account-state/img3.png';
 import accountStateProScreen4 from '../assets/images/projects-images/account-state/img4.png';
+import modernSchoolCadrage from '../assets/images/projects-images/modern-school/photo_2025-12-02_11-26-47.jpg';
 
 
 export type ProjectType = 'web' | 'mobile' | 'desktop';
@@ -245,7 +246,7 @@ export const projects: Project[] = [
   {
     title: 'Modern school',
     description: 'Solution complète de gestion d\'établissement scolaire avec gestion des notes etgénération des rapports',
-    image: projectJpg,
+    image: modernSchoolCadrage,
     technologies: ['Flutter', 'Dart', 'Objectbox'],
     type: 'professional',
     screenshots: [
