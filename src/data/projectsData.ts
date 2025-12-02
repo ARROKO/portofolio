@@ -38,6 +38,10 @@ import saloonprivedScreen3 from '../assets/images/projects-images/saloonprived/C
 import saloonprivedScreen4 from '../assets/images/projects-images/saloonprived/Capture4.png';
 import saloonprivedScreen5 from '../assets/images/projects-images/saloonprived/Capture5.png';
 import edusityHome from '../assets/images/projects-images/edusity/home.png';
+import accountStateProScreen1 from '../assets/images/projects-images/account-state/img1.png';
+import accountStateProScreen2 from '../assets/images/projects-images/account-state/img2.png';
+import accountStateProScreen3 from '../assets/images/projects-images/account-state/img3.png';
+import accountStateProScreen4 from '../assets/images/projects-images/account-state/img4.png';
 
 
 export type ProjectType = 'web' | 'mobile' | 'desktop';
@@ -127,13 +131,13 @@ export const projects: Project[] = [
     image2: marvelQuizPage1,
     application: 'desktop',
     screenshots: [
-        marvelQuizInscription,
-        marvelQuizConnexion,
-        marvelQuizGame2,
-        marvelQuizGame3,
-        marvelQuizGame4,
-        marvelQuizGame5,
-      ]
+      marvelQuizInscription,
+      marvelQuizConnexion,
+      marvelQuizGame2,
+      marvelQuizGame3,
+      marvelQuizGame4,
+      marvelQuizGame5,
+    ]
     ,
     technologies: ['React', 'Marvel API', 'Axios', 'Firebase'],
     github: 'https://github.com',
@@ -157,10 +161,10 @@ export const projects: Project[] = [
     image2: countryFlagsScreen2,
     application: 'desktop',
     screenshots: [
-        countryFlagsScreen1,
-        countryFlagsScreen2,
-        countryFlagsScreen3,
-      ]
+      countryFlagsScreen1,
+      countryFlagsScreen2,
+      countryFlagsScreen3,
+    ]
     ,
     technologies: ['React', 'Rest Countries', 'Axios'],
     github: 'https://github.com',
@@ -183,11 +187,11 @@ export const projects: Project[] = [
     image: edusityHome,
     longDescription: "Edusity est une application web en React JS offrant une vitrine numérique complète pour une université. Elle met en avant les programmes académiques, les départements, et les événements importants. L'interface utilisateur fluide et moderne garantit une navigation aisée. L'application est entièrement responsive, assurant une expérience utilisateur optimale sur tous les appareils, des ordinateurs de bureau aux smartphones. Grâce à des composants réutilisables et une gestion efficace de l'état, Edusity assure une performance optimisée et une maintenance simplifiée.",
     application: 'desktop',
-    screenshots:  [
-        'https://cdn.dribbble.com/userupload/5774261/file/original-bec5908d93d9c047ef55205b501879bf.png?resize=1024x768&vertical=center',
-        'https://cdn.dribbble.com/userupload/3991631/file/original-c4525bde314462e69016eff6bd25f81d.png?resize=1024x768&vertical=center',
-        'https://cdn.dribbble.com/userupload/3991833/file/original-a4c5e52044d6d9b90e842093bac21e30.png?resize=752x&vertical=center'
-      ],
+    screenshots: [
+      'https://cdn.dribbble.com/userupload/5774261/file/original-bec5908d93d9c047ef55205b501879bf.png?resize=1024x768&vertical=center',
+      'https://cdn.dribbble.com/userupload/3991631/file/original-c4525bde314462e69016eff6bd25f81d.png?resize=1024x768&vertical=center',
+      'https://cdn.dribbble.com/userupload/3991833/file/original-a4c5e52044d6d9b90e842093bac21e30.png?resize=752x&vertical=center'
+    ],
     technologies: ['React', 'Vite'],
     github: 'https://github.com',
     // live: 'https://example.com',
@@ -203,15 +207,48 @@ export const projects: Project[] = [
     public: "",
     architecture: "",
   },
-  
+
   // Projets Professionnels
   {
+    title: 'AccountState Pro',
+    description: 'Application web moderne et intuitive conçue pour simplifier la gestion financière des entreprises',
+    image: accountStateProScreen4,
+    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Prisma', 'PostgreSQL', 'Material-UI'],
+    type: 'professional',
+    screenshots: [
+      accountStateProScreen1,
+      accountStateProScreen2,
+      accountStateProScreen3,
+      accountStateProScreen4,
+    ],
+    features: [
+      'Création automatisée d\'états de compte',
+      'Calculs intelligents (excédents/manquants)',
+      'Suivi en temps réel des soldes',
+      'Historique complet des transactions',
+      'Statuts dynamiques (Ouvert, Soldé, Excédent)',
+      'Dashboard avec métriques en temps réel',
+      'Export PDF automatique',
+      'Enregistrement de paiements multiples',
+      'Calcul automatique des soldes',
+      'Gestion des excédents et remboursements',
+      'Système d\'authentification robuste',
+      'Permissions granulaires par fonctionnalité',
+      'Rôles utilisateurs (Admin, User, Viewer)',
+      'Journaux d\'audit complets',
+      'Sessions sécurisées avec refresh tokens'
+    ],
+    objectif: "Elle permet de suivre efficacement les états de compte clients, gérer les paiements, et générer des rapports détaillés avec une interface utilisateur élégante et des fonctionnalités avancées.",
+    public: "",
+    architecture: "",
+  },
+  {
     title: 'Modern school',
-    description: 'Solution complète de gestion d\'établissement scolaire avec gestion des notes génération des rapports',
+    description: 'Solution complète de gestion d\'établissement scolaire avec gestion des notes etgénération des rapports',
     image: projectJpg,
     technologies: ['Flutter', 'Dart', 'Objectbox'],
     type: 'professional',
-    screenshots:  [
+    screenshots: [
       modernSchoolScreen1,
       modernSchoolScreen1,
       modernSchoolScreen2,
@@ -231,7 +268,7 @@ export const projects: Project[] = [
       modernSchoolPhoto2,
       modernSchoolPhoto3,
     ],
-    
+
     objectif: "",
     architecture: "",
     public: ""
@@ -242,7 +279,7 @@ export const projects: Project[] = [
     image: projectJpg,
     technologies: ['Flutter'],
     type: 'professional',
-    screenshots:  [
+    screenshots: [
       saloonprivedScreen1,
       saloonprivedScreen2,
       saloonprivedScreen3,
@@ -253,6 +290,6 @@ export const projects: Project[] = [
     architecture: "",
     public: ""
   },
-  
-  
+
+
 ];
