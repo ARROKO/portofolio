@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #1a1a2e;
+  --foreground: #ededed;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Global dark background */
+body {
+  background: #1a1a2e !important;
+  min-height: 100vh;
+  color: white;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+html {
+  background: #1a1a2e;
+}
+
+/* Masquer le curseur par défaut sur tout le site */
+* {
+  cursor: none !important;
+}
+
+a,
+button,
+[role="button"],
+input,
+textarea,
+select,
+[tabindex],
+[onclick] {
+  cursor: none !important;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+/* Smooth scrolling */
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1000px; /* Estimation de la hauteur pour éviter le saut de scrollbar */
+}
+
+.bg-grid-pattern {
+  background-image: none;
+  background-size: 20px 20px;
 }
