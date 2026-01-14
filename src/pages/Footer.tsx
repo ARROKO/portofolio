@@ -1,36 +1,51 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { FooterWave } from "../components/Footer/FooterWave";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-auto">
-      <FooterWave />
-      
-      <div className="bg-gray-900">
-        <div className="max-w-6xl mx-auto px-4 py-12">
-          <div className="grid gap-12">
+    <footer className="relative mt-auto w-full">
+      {/* Separation Line with Gradient */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+      {/* Footer Content with Glassmorphism */}
+      <div className="relative bg-black/20 backdrop-blur-sm border-t border-white/5">
+        <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
+          <div className="flex flex-col items-center justify-center gap-6">
             
-            {/* Copyright */}
+            {/* Copyright & Info */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-center text-gray-400 pt-8 border-t border-gray-800"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-center space-y-2"
             >
-              <p>© {currentYear} Joseph. Tous droits réservés.</p>
-              <motion.p 
+              <p className="text-gray-400 text-sm md:text-base font-light tracking-wide">
+                © {currentYear} <span className="text-white font-medium">Joseph Kemgang</span>. Tous droits réservés.
+              </p>
+              
+              <motion.div 
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="mt-2 text-sm"
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="flex items-center justify-center gap-2 text-xs md:text-sm text-gray-500"
               >
-                Fait avec ❤️ à Yaoundé, Cameroun
-              </motion.p>
+                <span>Fait avec</span>
+                <motion.span 
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                  className="text-red-500 inline-block"
+                >
+                  ❤️
+                </motion.span>
+                <span>à Yaoundé, Cameroun</span>
+              </motion.div>
             </motion.div>
+
           </div>
         </div>
       </div>

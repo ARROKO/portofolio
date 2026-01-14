@@ -24,7 +24,7 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, opacity, scale }) =>
       className="relative h-screen flex items-center justify-center overflow-hidden"
       style={{ opacity, scale }}
     >
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 pointer-events-none">
         <LazyImage
           src={project.image2 !== undefined ? project.image2 : project.image} 
           alt={project.title}
@@ -79,7 +79,7 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, opacity, scale }) =>
         </motion.p>
 
         <motion.div 
-          className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 px-2"
+          className="relative z-20 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 px-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -119,7 +119,7 @@ const ProjectHero: React.FC<ProjectHeroProps> = ({ project, opacity, scale }) =>
       </div>
 
       <motion.div 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 pointer-events-none"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
