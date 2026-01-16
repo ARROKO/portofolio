@@ -13,6 +13,7 @@ import bridgeLogo from '../assets/images/bridge_logo.png';
 import LazyImage from "../components/LazyImage";
 import SEOHead from "../components/SEO/SEOHead";
 import { seoData } from "../data/seoData";
+import { Play, Pause } from "lucide-react";
 
 const About = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -145,13 +146,38 @@ const About = () => {
                   currentIndex={currentIndex}
                 />
 
-                {/* Nano-Progress Bar (Top Position) */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-white/10 overflow-hidden rounded-t-3xl z-20">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"
-                    style={{ width: `${progress}%` }}
-                    transition={{ duration: 0, ease: "linear" }}
-                  />
+                {/* Circular Timer & Pause Control (Bottom Right) */}
+                <div className="absolute bottom-6 right-6 z-30 flex items-center justify-center">
+                  <div className="relative w-12 h-12 flex items-center justify-center">
+                    <svg className="w-full h-full -rotate-90 transform" viewBox="0 0 36 36">
+                      {/* Background Circle */}
+                      <path
+                        className="text-white/20"
+                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                      />
+                      {/* Progress Circle */}
+                      <motion.path
+                        className="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]"
+                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeDasharray="100, 100"
+                        strokeDashoffset={100 - progress}
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    {/* Icon Center */}
+                    <button
+                      onClick={(e) => { e.stopPropagation(); togglePause(); }}
+                      className="absolute inset-0 flex items-center justify-center text-white hover:scale-110 transition-transform duration-200"
+                    >
+                      {isPaused ? <Play size={16} fill="currentColor" /> : <Pause size={16} fill="currentColor" />}
+                    </button>
+                  </div>
                 </div>
               </div>
 
