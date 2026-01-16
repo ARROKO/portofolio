@@ -52,11 +52,7 @@ export default function HomeScene3D() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center relative overflow-hidden bg-transparent">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2 pointer-events-none" />
-
+    <div className="w-full min-h-screen flex items-center justify-center relative bg-transparent">
       {/* Loader */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-transparent z-10 pointer-events-none">
@@ -65,7 +61,7 @@ export default function HomeScene3D() {
       )}
 
       {/* Main Container */}
-      <div className="w-full container mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
+      <div className="w-full px-6 md:px-12 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
         
         {/* TEXTE (GAUCHE) */}
         <div className="w-full lg:w-1/2 text-center lg:text-left z-10 order-2 lg:order-1 flex flex-col justify-center">
