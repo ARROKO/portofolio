@@ -64,31 +64,16 @@ export default function HomeScene3D() {
       <div className="w-full px-6 md:px-12 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
         
         {/* TEXTE (GAUCHE) */}
-        <div className="w-full lg:w-1/2 text-center lg:text-left z-10 order-2 lg:order-1 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 text-center lg:text-left z-10 order-2 lg:order-1 flex flex-col justify-center min-h-[400px]">
           
-          {/* Badge animé */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex justify-center lg:justify-start"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6 w-fit hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-default group">
-              <Sparkles className="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform" />
-              <span className="text-sm font-medium text-cyan-100/90 tracking-wide">
-                Simplicité & Excellence
-              </span>
-            </div>
-          </motion.div>
-
           {/* TITRE "EXTRAORDINAIRE" */}
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight relative">
-            <div className="">
-               <ScrambleText text="INNOVATION" delay={500} />
+            <div className="min-h-[1.2em]">
+               <ScrambleText text="BIENVENUE CHEZ" delay={500} />
             </div>
-            <div className="mt-2">
+            <div className="mt-2 min-h-[1.2em]">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500 animate-gradient bg-300%">
-                 <ScrambleText text="PERFORMANCE" delay={1200} />
+                 <ScrambleText text="JOSEPH" delay={1200} />
               </span>
             </div>
           </h1>
@@ -98,9 +83,9 @@ export default function HomeScene3D() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.8, duration: 0.8 }}
-            className="text-lg md:text-xl text-gray-300 mb-0 max-w-lg leading-relaxed font-light mx-auto lg:mx-0 border-l-2 border-cyan-500/30 pl-6"
+            className="text-lg md:text-2xl text-gray-300 mb-0 max-w-lg leading-relaxed font-light mx-auto lg:mx-0 border-l-2 border-cyan-500/30 pl-6 italic"
           >
-            L&apos;alliance de la créativité et de la technique pour des expériences web uniques.
+            &quot;Pénétrez dans un univers où chaque pixel est un privilège.&quot;
           </motion.p>
         </div>
 
