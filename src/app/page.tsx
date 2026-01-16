@@ -4,18 +4,18 @@ import { Suspense } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import { CustomCursor } from '@/components/CustomCursor';
-import { Footer } from '@/pages/Footer';
+import { Footer } from '@/views/Footer';
 import WaveTransition from '@/components/WaveTransition';
 import QuantumLoader from '@/components/QuantumLoader';
 import SkipLinks from '@/components/SkipLinks';
 import ParticlesBackground from '@/components/ParticlesBackground';
 
 // Lazy loading components for section visibility
-import Home from '@/pages/Home';
-import About from '@/pages/About';
-import Skills from '@/pages/Skills';
-import Projects from '@/pages/Projects';
-import Contact from '@/pages/Contact';
+import Home from '@/views/Home';
+import About from '@/views/About';
+import Skills from '@/views/Skills';
+import Projects from '@/views/Projects';
+import Contact from '@/views/Contact';
 
 export default function PortfolioPage() {
   const { scrollYProgress } = useScroll();

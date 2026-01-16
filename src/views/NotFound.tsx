@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { Home, ArrowLeft } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
 
 const NotFound = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <PageTransition>
@@ -49,7 +49,7 @@ const NotFound = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => router.back()}
               className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white"
             >
               <ArrowLeft size={20} />
@@ -57,7 +57,7 @@ const NotFound = () => {
             </button>
             
             <button
-              onClick={() => navigate('/')}
+              onClick={() => router.push('/')}
               className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-all text-white shadow-lg shadow-blue-500/25"
             >
               <Home size={20} />

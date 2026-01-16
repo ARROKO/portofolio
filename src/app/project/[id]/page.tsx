@@ -13,7 +13,7 @@ import ProjectGallery from '@/components/ProjectDetails/ProjectGallery';
 import SEOHead from '@/components/SEO/SEOHead';
 import { getProjectSEO } from '@/data/seoData';
 import Navbar from '@/components/Navbar';
-import { Footer } from '@/pages/Footer';
+import { Footer } from '@/views/Footer';
 
 export default function ProjectDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

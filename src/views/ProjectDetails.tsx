@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useRouter } from 'next/navigation';
 import gsap from 'gsap';
 import { Code2 } from 'lucide-react';
 import { projects } from '../data/projectsData';
@@ -12,8 +12,9 @@ import SEOHead from '../components/SEO/SEOHead';
 import { getProjectSEO } from '../data/seoData';
 
 const ProjectDetails = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const params = useParams();
+  const id = params?.id as string;
+  const router = useRouter();
   const project = projects.find((p: Project) => p.title.toLowerCase().replace(/\s+/g, '-') === id);
   const containerRef = useRef<HTMLDivElement>(null);
   
@@ -26,9 +27,11 @@ const ProjectDetails = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
     if (!project) {
-      navigate('/');
+      router.push('/');
       return;
     }
 
@@ -58,7 +61,7 @@ const ProjectDetails = () => {
     });
 
     return () => ctx.revert();
-  }, [project, navigate]);
+  }, [project, router]);
 
   if (!project) return null;
 

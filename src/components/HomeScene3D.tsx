@@ -61,13 +61,13 @@ export default function HomeScene3D() {
       )}
 
       {/* Main Container */}
-      <div className="w-full px-6 md:px-12 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
+      <div className="w-full px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-16">
         
         {/* TEXTE (GAUCHE) */}
-        <div className="w-full lg:w-1/2 text-center lg:text-left z-10 order-2 lg:order-1 flex flex-col justify-center min-h-[400px]">
+        <div className="w-full flex flex-col justify-center items-center lg:items-start text-center lg:text-left z-10 order-2 lg:order-1 min-h-[400px]">
           
           {/* TITRE "EXTRAORDINAIRE" */}
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight relative">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight relative w-full pl-1">
             <div className="min-h-[1.2em]">
                <ScrambleText text="BIENVENUE CHEZ" delay={500} />
             </div>
@@ -94,7 +94,7 @@ export default function HomeScene3D() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
-          className="h-400 w-200 lg:h-[800px] shrink-0 relative order-1 lg:order-2"
+          className="h-400 w-200 lg:h-[800px] relative order-1 lg:order-2 flex justify-center items-center mx-auto"
         >
           <Spline
             scene="https://prod.spline.design/xz3RduXdQGG6xtbj/scene.splinecode"
