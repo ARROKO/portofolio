@@ -27,7 +27,11 @@ const ProjectOverview: React.FC<ProjectOverviewProps> = ({ project }) => {
       title: "Public Cible",
       description: project.public
     }
-  ];
+  ].filter(item => {
+    if (!item.description) return false;
+    if (Array.isArray(item.description) && item.description.length === 0) return false;
+    return true;
+  });
 
   return (
     <section className="content-section">

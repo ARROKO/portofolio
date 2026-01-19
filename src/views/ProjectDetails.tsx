@@ -79,10 +79,11 @@ const ProjectDetails = () => {
         scale={scale}
       />
       <div className="max-w-7xl mx-auto px-2 md:px-6 py-8 md:py-20 space-y-16 md:space-y-32">
-        {project.public && (<ProjectOverview project={project} />)}
+        {(project.architecture || project.objectif || (project.public && project.public.length > 0)) && (<ProjectOverview project={project} />)}
         <ProjectGallery screenshots={project.screenshots} type={project.type}/>
         {/* <ProjectTechnologies project={project} /> */}
         {/* Technologies Section */}
+        {project.technologies && project.technologies.length > 0 && (
         <section className="content-section">
           <h2 className="text-2xl md:text-4xl font-bold mb-6 md:mb-12 flex items-center gap-2 md:gap-4">
             <Code2 className="text-pink-500 w-6 h-6 md:w-10 md:h-10" />
@@ -111,6 +112,7 @@ const ProjectDetails = () => {
             ))}
           </div>
         </section>
+        )}
 
         {/* Features Section */}
         {project.features && project.features.length > 0 && (

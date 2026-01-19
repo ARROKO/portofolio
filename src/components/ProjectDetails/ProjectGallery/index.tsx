@@ -25,6 +25,9 @@ const ProjectGallery = ({ screenshots, type }: ProjectGalleryProps) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Early return if no screenshots
+  if (!screenshots || screenshots.length === 0) return null;
+
   const primaryColor = type === 'personal' ? 'text-pink-500' : 'text-blue-500';
   const ringColor = type === 'personal' ? 'ring-pink-500' : 'ring-blue-500';
   const gradientColor = type === 'personal' ? 'from-pink-500 to-purple-500' : 'from-blue-500 to-cyan-500';

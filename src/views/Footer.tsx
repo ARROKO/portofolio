@@ -35,13 +35,24 @@ export const Footer = () => {
                 className="flex items-center justify-center gap-2 text-xs md:text-sm text-gray-500"
               >
                 <span>Fait avec</span>
-                <motion.span 
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ repeat: Infinity, duration: 1.5 }}
+                <span 
                   className="text-red-500 inline-block"
+                  style={{
+                    animation: 'heartbeat 1.5s ease-in-out infinite both',
+                  }}
                 >
+                  <style jsx>{`
+                    @keyframes heartbeat {
+                      0% { transform: scale(1); }
+                      15% { transform: scale(1.25); }
+                      30% { transform: scale(1); }
+                      45% { transform: scale(1.25); }
+                      80% { transform: scale(1); }
+                      100% { transform: scale(1); }
+                    }
+                  `}</style>
                   ❤️
-                </motion.span>
+                </span>
                 <span>à Yaoundé, Cameroun</span>
               </motion.div>
             </motion.div>
