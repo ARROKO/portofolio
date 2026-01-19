@@ -230,7 +230,7 @@ const ParticlesBackground: React.FC<ParticlesProps> = ({
   return (
     <div
       className={cn(
-        "fixed inset-0 -z-10 bg-[#1a1a2e]",
+        "fixed inset-0 -z-10 bg-transparent",
         className
       )}
       ref={canvasContainerRef}

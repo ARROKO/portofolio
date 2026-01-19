@@ -9,6 +9,7 @@ import WaveTransition from '@/components/WaveTransition';
 import QuantumLoader from '@/components/QuantumLoader';
 import SkipLinks from '@/components/SkipLinks';
 import ParticlesBackground from '@/components/ParticlesBackground';
+import GlobalBackground from '@/components/GlobalBackground';
 
 // Lazy loading components for section visibility
 import Home from '@/views/Home';
@@ -28,7 +29,11 @@ export default function PortfolioPage() {
   return (
     <div className="relative min-h-screen text-white overflow-x-hidden">
       <SkipLinks />
+      
+      {/* Nouveau Background Global (Grille + Lueurs) */}
+      <GlobalBackground />
       <ParticlesBackground />
+      
       <Navbar />
       
       <motion.div

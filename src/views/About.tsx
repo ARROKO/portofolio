@@ -138,7 +138,7 @@ const About = () => {
               <div className="relative" style={{ perspective: "1000px" }}>
                 {/* Glow Effect Container */}
                 <motion.div
-                  className="absolute -inset-4 bg-linear-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute -inset-4 bg-linear-to-r from-white/10 to-white/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 />
 
                 <StackedImages
@@ -160,7 +160,7 @@ const About = () => {
                       />
                       {/* Progress Circle */}
                       <motion.path
-                        className="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]"
+                        className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
                         d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                         fill="none"
                         stroke="currentColor"

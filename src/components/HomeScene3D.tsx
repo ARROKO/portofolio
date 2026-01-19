@@ -2,19 +2,13 @@
 
 import { motion } from "framer-motion";
 
+import HeroTechSlider from "./HeroTechSlider";
+
 export default function HomeScene3D() {
   return (
     <div className="w-full min-h-screen flex items-center justify-center relative overflow-hidden bg-transparent">
       
-      {/* --- FOND AMBIANT --- */}
-      {/* Grille ultra-subtile */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]" />
-      
-      {/* Lueurs d'ambiance plus diffuses */}
-      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[120px] opacity-30" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] opacity-20" />
-
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 h-full py-20">
+      <div className="w-full max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 h-full py-20">
         
         {/* --- COLONNE GAUCHE : IDENTITÉ --- */}
         <div className="lg:col-span-7 flex flex-col justify-center text-left">
@@ -23,10 +17,21 @@ export default function HomeScene3D() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
-            className="mb-6 flex items-center gap-4"
+            className="mb-8 flex items-center gap-3"
           >
-            <div className="h-[1px] w-12 bg-cyan-500/30" />
-            <span className="text-cyan-400/80 font-mono text-sm tracking-widest uppercase">Creative Developer</span>
+            {/* Ligne décorative plus subtile */}
+            <div className="h-[1px] w-8 bg-gray-600/50" />
+            
+            {/* Badge de statut */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-[10px] md:text-xs font-medium tracking-widest text-gray-300 uppercase">
+                Available for work
+              </span>
+            </div>
           </motion.div>
 
           <motion.h1 
@@ -45,28 +50,24 @@ export default function HomeScene3D() {
             transition={{ duration: 1, delay: 0.4 }}
             className="text-lg text-gray-400 max-w-xl leading-relaxed border-l border-white/10 pl-6 mb-12"
           >
-            Je conçois des expériences numériques où la <span className="text-white font-medium">Beauté</span> rencontre la fonctionnalité, 
-            avec une <span className="text-white font-medium">Élégance</span> structurelle et une <span className="text-white font-medium">Simplicité</span> absolue.
+            Je ne code pas, je sculpte des émotions. Une alchimie où la <span className="text-white font-medium">Beauté</span> caresse la rétine et l'<span className="text-white font-medium">Élégance</span> guide l'instinct, pour une <span className="text-white font-medium">Simplicité</span> si pure qu'elle en devient enivrante.
           </motion.p>
 
-          {/* Les 3 Principes */}
+          {/* Slider de Technologies Minimaliste */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="flex flex-wrap gap-4"
+            initial={{ opacity: 0, filter: "blur(12px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
+            className="relative"
           >
-            {['Beauté', 'Élégance', 'Simplicité'].map((item) => (
-              <div key={item} className="px-6 py-2 rounded-full border border-white/5 bg-white/5 backdrop-blur-md text-sm text-gray-300 font-light tracking-wide hover:border-cyan-500/30 transition-colors duration-500">
-                {item}
-              </div>
-            ))}
+            <div className="mb-3 text-[10px] uppercase tracking-widest text-gray-600 font-mono">Stack Principale</div>
+            <HeroTechSlider />
           </motion.div>
         </div>
 
         {/* --- COLONNE DROITE : L'ARTEFACT --- */}
         <div className="lg:col-span-5 relative flex justify-center items-center h-[500px]">
-          
+          {/* ... reste de ton code artefact ... */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -117,11 +118,25 @@ export default function HomeScene3D() {
             >
                <span className="text-white/40 text-xl font-light">✦</span>
             </motion.div>
-
           </motion.div>
         </div>
-
       </div>
+
+      {/* --- SCROLL INDICATOR (STYLE PROJECT HERO) --- */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 10, 0] }}
+        transition={{ 
+          opacity: { delay: 2, duration: 1 },
+          y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+        }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
+        onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+      >
+        <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center">
+          <div className="w-1 h-2 bg-white/60 rounded-full mt-2 animate-bounce" />
+        </div>
+      </motion.div>
     </div>
   );
 }
