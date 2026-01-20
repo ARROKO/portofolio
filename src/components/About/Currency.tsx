@@ -1,6 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { ChevronDown } from 'lucide-react';
+import { cn } from '../../utils/cn';
 
 interface DeviseItem {
   title: string;
@@ -30,95 +33,115 @@ const devises: DeviseItem[] = [
   }
 ];
 
-export const Currency = () => {
-  return (
-    <div className="my-12">
-      
+const DeviseCard = ({ devise, index }: { devise: DeviseItem, index: number }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-      {/* Grid des devises */}
-      <div className="space-y-8">
-        {devises.map((devise, index) => (
-          <motion.div
-            key={devise.title}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ 
-              delay: 0.3 + index * 0.2,
-              duration: 0.8,
-              ease: "easeOut"
-            }}
-            className="group relative"
-          >
-            {/* Card principale */}
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-500">
-              {/* Header avec icône et titre */}
-              <div className="flex items-center gap-2 md:gap-4 mb-4 md:mb-6">
-                <motion.div
-                  className="text-2xl md:text-4xl"
-                  animate={{
-                    rotate: [0, -5, 5, 0],
-                    scale: [1, 1.1, 1]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  {devise.icon}
-                </motion.div>
-                <h3 className={`text-lg md:text-2xl font-bold bg-gradient-to-r ${devise.color} bg-clip-text text-transparent`}>
-                  {devise.title}
-                </h3>
-              </div>
-              
-              {/* Contenu */}
-              <p className="text-gray-300 leading-relaxed text-justify text-sm md:text-base">
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="group relative"
+    >
+      <div 
+        className={cn(
+          "bg-white/5 backdrop-blur-sm rounded-2xl p-5 md:p-8 border border-white/10 hover:border-white/20 transition-all duration-500",
+          isMobile && "cursor-pointer"
+        )}
+        onClick={() => isMobile && setIsOpen(!isOpen)}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <motion.div
+              className="text-2xl md:text-4xl"
+              animate={{
+                rotate: [0, -5, 5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              {devise.icon}
+            </motion.div>
+            <h3 className={`text-lg md:text-2xl font-bold bg-gradient-to-r ${devise.color} bg-clip-text text-transparent`}>
+              {devise.title}
+            </h3>
+          </div>
+          
+          {/* Mobile Chevron */}
+          <div className="md:hidden">
+            <ChevronDown 
+              size={20} 
+              className={cn("text-gray-500 transition-transform duration-300", isOpen && "rotate-180")} 
+            />
+          </div>
+        </div>
+
+        {/* Content - Desktop (visible) / Mobile (Accordion) */}
+        <div className="hidden md:block mt-6">
+          <p className="text-gray-300 leading-relaxed text-sm md:text-base text-justify">
+            {devise.content}
+          </p>
+        </div>
+
+        <AnimatePresence>
+          {isOpen && isMobile && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="overflow-hidden md:hidden"
+            >
+              <p className="text-gray-300 leading-relaxed text-sm pt-4 text-justify border-t border-white/5 mt-4">
                 {devise.content}
               </p>
-              
-              
-            </div>
-            
-            {/* Particules flottantes */}
-            <div className="absolute inset-0 pointer-events-none">
-              {[...Array(3)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className={`absolute w-2 h-2 bg-gradient-to-r ${devise.color} rounded-full opacity-20`}
-                  style={{
-                    left: `${20 + i * 30}%`,
-                    top: `${10 + i * 20}%`,
-                  }}
-                  animate={{
-                    y: [-10, -20, -10],
-                    opacity: [0.2, 0.6, 0.2],
-                    scale: [1, 1.5, 1]
-                  }}
-                  transition={{
-                    duration: 4 + i,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.5
-                  }}
-                />
-              ))}
-            </div>
-          </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Particules décoratives */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+          {[...Array(2)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={`absolute w-1 h-1 bg-gradient-to-r ${devise.color} rounded-full opacity-20`}
+              style={{ left: `${30 + i * 40}%`, top: `${20 + i * 50}%` }}
+              animate={{ y: [-10, 10, -10], opacity: [0.2, 0.5, 0.2] }}
+              transition={{ duration: 3 + i, repeat: Infinity }}
+            />
+          ))}
+      </div>
+    </motion.div>
+  );
+};
+
+export const Currency = () => {
+  return (
+    <div className="my-8">
+      <div className="space-y-6">
+        {devises.map((devise, index) => (
+          <DeviseCard key={devise.title} devise={devise} index={index} />
         ))}
       </div>
       
-      {/* Citation inspirante */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="text-center mt-8 md:mt-12 px-2"
+        whileInView={{ opacity: 1 }}
+        className="text-center mt-12 px-2"
       >
-        <p className="text-gray-400 italic text-sm md:text-lg">
+        <p className="text-gray-400 italic text-sm">
           "La beauté, l'élégance et la simplicité sont les piliers de toute création exceptionnelle"
         </p>
-        <p className="text-gray-500 text-xs md:text-sm mt-2">
+        <p className="text-gray-500 text-[10px] mt-2 uppercase tracking-widest">
           - Joseph Kemgang
         </p>
       </motion.div>

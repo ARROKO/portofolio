@@ -10,8 +10,8 @@ export default function HomeScene3D() {
       
       <div className="w-full max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 h-full py-20">
         
-        {/* --- COLONNE GAUCHE : IDENTITÉ --- */}
-        <div className="lg:col-span-7 flex flex-col justify-center text-left">
+        {/* --- COLONNE GAUCHE : IDENTITÉ (Full width on mobile) --- */}
+        <div className="lg:col-span-7 flex flex-col justify-center text-left relative z-20">
           
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
@@ -65,9 +65,8 @@ export default function HomeScene3D() {
           </motion.div>
         </div>
 
-        {/* --- COLONNE DROITE : L'ARTEFACT --- */}
-        <div className="lg:col-span-5 relative flex justify-center items-center h-[500px]">
-          {/* ... reste de ton code artefact ... */}
+        {/* --- COLONNE DROITE : L'ARTEFACT (Masqué sur mobile) --- */}
+        <div className="hidden lg:flex lg:col-span-5 relative justify-center items-center h-[500px]">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
