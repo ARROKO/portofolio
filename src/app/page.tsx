@@ -80,7 +80,7 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        <section id="skills" className="min-h-screen py-24 px-4">
+        <section id="skills" className="h-auto py-24 px-4">
           <div className="max-w-6xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -96,7 +96,7 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        <section id="contact" className="min-h-screen py-24 px-4">
+        <section id="contact" className="h-auto py-24 px-4">
           <div className="max-w-4xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}

@@ -56,7 +56,7 @@ const Contact: React.FC = () => {
   return (
     <PageTransition>
       <Toaster position="bottom-right" reverseOrder={false} />
-      <div className="max-w-6xl mx-auto px-2 md:px-4 py-8 md:py-16 space-y-8 md:space-y-16">
+      <div className="max-w-6xl mx-auto px-2 md:px-4 py-4 md:py-8 space-y-8 md:space-y-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
