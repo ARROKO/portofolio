@@ -28,7 +28,7 @@ export const CVDownload = () => {
           Découvrez mon parcours professionnel et mes compétences en détail
         </p>
         <motion.a
-          href="https://drive.google.com/file/d/1AzSg_QN9nTCOs4tDlaczi0k_WMcz9zkI/view?usp=drive_link"
+          href="https://drive.google.com/file/d/1WmdMS33EmyZs8AdByXJOF5kY3OoWCO9O/view?usp=drive_link"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.05 }}
