@@ -139,10 +139,10 @@ export const Currency = () => {
         className="text-center mt-12 px-2"
       >
         <p className="text-gray-400 italic text-sm">
-          "La beauté, l'élégance et la simplicité sont les piliers de toute création exceptionnelle"
+          &quotLa simplicité est la sophistication suprême.&quot
         </p>
         <p className="text-gray-500 text-[10px] mt-2 uppercase tracking-widest">
-          - Joseph Kemgang
+          - Leonardo da Vinci
         </p>
       </motion.div>
     </div>
