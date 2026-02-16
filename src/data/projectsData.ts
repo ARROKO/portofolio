@@ -76,11 +76,9 @@ export const projects: Project[] = [
     live: "https://weather-app-7c0aa.web.app/",
     type: "personal",
     features: [
-      "Prise de notes vocales",
-      "Notifications de rappel",
-      "Thèmes personnalisables",
-      "Recherche avancée",
-      "Partage de notes",
+      "Recherche de météo par ville",
+      "Affichage des données détaillées (température, humidité, vent, pression)",
+      "Intégration d'API météo externe"
     ],
     objectif:
       "Offrir aux utilisateurs une expérience fluide et intuitive pour consulter les prévisions météorologiques locales et mondiales. L\'application vise à aider les utilisateurs à planifier leurs journées, prendre des décisions adaptées à la météo (vêtements, activités extérieures)",
@@ -112,11 +110,12 @@ export const projects: Project[] = [
     live: "https://marvelquiz-8186f.web.app/",
     type: "personal",
     features: [
-      "Prise de notes vocales",
-      "Notifications de rappel",
-      "Thèmes personnalisables",
-      "Recherche avancée",
-      "Partage de notes",
+      "Authentification utilisateur avec Firebase",
+      "Intégration dynamique des données via Marvel API",
+      "Gestion d'état avec React Hooks",
+      "System de score avec calcul automatique",
+      "Persistance des données (Firestore)",
+      "Architecture modulaire des composants",
     ],
     objectif:
       "L’objectif de Marvel Quiz est de proposer une expérience ludique et immersive aux fans de l’univers Marvel. Les utilisateurs peuvent tester leurs connaissances sur les héros, les films, les comics et les événements majeurs de l’univers Marvel à travers une série de questions évolutives.",
@@ -285,7 +284,7 @@ export const projects: Project[] = [
     title: "Editions Clé",
     description:
       "Site institutionnel pour une maison d'édition professionnelle sous WordPress.",
-    image: "/images/project.jpg",
+    image: "/images/projects-images/editions-cle/acceuil.png",
     technologies: ["WordPress", "PHP", "CSS", "MySQL"],
     type: "professional",
     screenshots: [
@@ -312,7 +311,7 @@ export const projects: Project[] = [
     title: "Doualair Catering",
     description:
       "Expérience digitale immersive pour le catering aérien de luxe, alliant storytelling visuel et performance technique de pointe.",
-    image: "/images/project.jpg",
+    image: "/images/projects-images/doualair/img1.png",
     technologies: [
       "Next.js 14 (App Router)",
       "Framer Motion (Advanced Orchestration)",
@@ -322,13 +321,19 @@ export const projects: Project[] = [
       "Next-Intl",
     ],
     type: "professional",
-    screenshots: ["/images/project.jpg"],
+    screenshots: [
+      "/images/projects-images/doualair/img1.png",
+      "/images/projects-images/doualair/img2.png",
+      "/images/projects-images/doualair/img3.png",
+      "/images/projects-images/doualair/img4.png",
+      "/images/projects-images/doualair/img5.png",
+    ],
     features: [
-      '-Cinematic Intro : Animation d\'introduction complexe avec effets de masque, "beam light" et typographie réactive (Framer Motion).',
-      "-Micro-Interactions : Effets de parallaxe à la souris (MouseParallax) et feedbacks visuels subtils pour une immersion totale.",
-      "-Smart Hydration : Gestion avancée du cycle de vie React et du SessionStorage pour ne pas lasser l'utilisateur régulier (Intro Skip).",
-      "-Internationalisation I18n : Architecture multilingue native avec Next-Intl.",
-      "-Adaptive Motion : Chorégraphies d'animation distinctes et optimisées pour Mobile (GPU friendly) et Desktop.",
+      'Cinematic Intro : Animation d\'introduction complexe avec effets de masque, "beam light" et typographie réactive (Framer Motion).',
+      "Micro-Interactions : Effets de parallaxe à la souris (MouseParallax) et feedbacks visuels subtils pour une immersion totale.",
+      "Smart Hydration : Gestion avancée du cycle de vie React et du SessionStorage pour ne pas lasser l'utilisateur régulier (Intro Skip).",
+      "Internationalisation I18n : Architecture multilingue native avec Next-Intl.",
+      "Adaptive Motion : Chorégraphies d'animation distinctes et optimisées pour Mobile (GPU friendly) et Desktop.",
     ],
     objectif:
       "Transposer l\'excellence et la précision du service traiteur aérien dans une interface web qui 'flotte', sans aucun compromis sur la rapidité de chargement.",
