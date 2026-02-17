@@ -328,6 +328,7 @@ export const projects: Project[] = [
       "/images/projects-images/doualair/img4.png",
       "/images/projects-images/doualair/img5.png",
     ],
+    live: "https://doualair-frontend.vercel.app/fr",
     features: [
       'Cinematic Intro : Animation d\'introduction complexe avec effets de masque, "beam light" et typographie réactive (Framer Motion).',
       "Micro-Interactions : Effets de parallaxe à la souris (MouseParallax) et feedbacks visuels subtils pour une immersion totale.",
